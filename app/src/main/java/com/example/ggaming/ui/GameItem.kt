@@ -1,6 +1,7 @@
 package com.example.ggaming.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,12 +38,16 @@ import com.example.ggaming.utils.DateUtils
 @Composable
 fun GameItem(
     modifier: Modifier = Modifier,
-    game: Game
+    game: Game,
+    event: (GameEvent) -> Unit
 ) {
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .clickable {
+                event.invoke(GameEvent.OnItemClick(game))
+            },
         colors = CardDefaults.cardColors(
             containerColor = primaryContainerLightMediumContrast
         )
@@ -133,7 +138,8 @@ fun RatingCountText(ratingCount: Int){
 @Composable
 fun GameItemPreview(){
     GameItem(
-        game = createDummyGame()
+        game = createDummyGame(),
+        event = {}
     )
 }
 
