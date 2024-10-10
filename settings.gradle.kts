@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "GGaming"
 include(":app")
- 
+include(":core")
