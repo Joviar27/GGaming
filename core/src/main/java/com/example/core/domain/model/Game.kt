@@ -5,6 +5,7 @@ import java.util.Date
 
 data class Game (
     val id: Int,
+    val isFavorite: Boolean,
     val name: String,
     val releaseDate: Date = Date(),
     val rating: Double,
@@ -41,6 +42,7 @@ data class Platform(
 
 fun createDummyGame() = Game(
     id = 0,
+    isFavorite = false,
     name = "Dummy Game",
     releaseDate = Date(),
     rating = 4.44,
