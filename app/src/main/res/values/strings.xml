@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">GGaming</string>
+
+    <!-- Game Item   -->
+    <string name="release_date">Released: %s</string>
 </resources>
