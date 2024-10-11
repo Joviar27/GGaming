@@ -43,4 +43,8 @@ dependencies {
 
     //UI
     api(libs.glide.compose)
+
+    //Paging
+    api(libs.paging.runtime)
+    api(libs.paging.compose)
 }

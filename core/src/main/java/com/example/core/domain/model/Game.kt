@@ -40,10 +40,10 @@ data class Platform(
     val image: String
 )
 
-fun createDummyGame() = Game(
-    id = 0,
+fun createDummyGame(id: Int = 0) = Game(
+    id = id,
     isFavorite = false,
-    name = "Dummy Game",
+    name = "Lorem Ipsum",
     releaseDate = Date(),
     rating = 4.44,
     ratingCount = 6777,
@@ -68,3 +68,11 @@ fun createDummyGame() = Game(
         image = ""
     ))
 )
+
+fun createDummyGameList(amount:Int): List<Game>{
+    val gameList = mutableListOf<Game>()
+    for (i in 0..amount) {
+        gameList.add(createDummyGame(i))
+    }
+    return gameList
+}
