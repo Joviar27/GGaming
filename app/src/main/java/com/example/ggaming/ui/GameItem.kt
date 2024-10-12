@@ -1,6 +1,7 @@
 package com.example.ggaming.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,11 +14,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,11 +42,14 @@ import com.example.core.domain.model.createDummyGame
 import com.example.ggaming.R
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.onPrimaryContainerLight
+import com.example.ggaming.ui.theme.onSurfaceLight
 import com.example.ggaming.ui.theme.onSurfaceLightHighContrast
 import com.example.ggaming.ui.theme.primaryContainerLight
 import com.example.ggaming.ui.theme.primaryLight
 import com.example.ggaming.ui.theme.surfaceContainerHighLightMediumContrast
+import com.example.ggaming.ui.theme.surfaceContainerLight
 import com.example.ggaming.ui.theme.surfaceContainerLightHighContrast
+import com.example.ggaming.ui.theme.tertiaryContainerLight
 import com.example.ggaming.utils.DateUtils
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -60,7 +67,7 @@ fun GameItem(
                 event.invoke(GameEvent.OnItemClicked(game))
             },
         colors = CardDefaults.cardColors(
-            containerColor = primaryContainerLight
+            containerColor = surfaceContainerLight
         )
     ){
         Column {
@@ -74,14 +81,17 @@ fun GameItem(
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
-                IconButton(
-                    modifier = Modifier.align(Alignment.TopEnd)
-                        .padding(8.dp),
-                    onClick = {
+                Box(Modifier
+                    .padding(16.dp)
+                    .align(Alignment.TopEnd)
+                    .clip(CircleShape)
+                    .background(tertiaryContainerLight)
+                    .clickable {
                         event.invoke(GameEvent.OnFavoriteClicked(game))
                     }
-                ) {
+                ){
                     Icon(
+                        modifier = Modifier.padding(8.dp),
                         painter = painterResource(
                             if(game.isFavorite) R.drawable.baseline_bookmark_24
                             else R.drawable.baseline_bookmark_border_24
@@ -100,13 +110,13 @@ fun GameItem(
                 Column{
                     Text(
                         style = GGamingTypography.headlineSmall,
-                        color = onPrimaryContainerLight,
+                        color = onSurfaceLight,
                         text = game.name
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
                         style = GGamingTypography.labelMedium,
-                        color = onPrimaryContainerLight,
+                        color = onSurfaceLight,
                         text = stringResource(
                             R.string.release_date,
                             DateUtils.dateToString(

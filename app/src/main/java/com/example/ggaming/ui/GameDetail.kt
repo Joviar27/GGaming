@@ -1,6 +1,7 @@
 package com.example.ggaming.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,7 +53,8 @@ import com.example.ggaming.utils.DateUtils
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun GameDetail(
-    game: Game
+    game: Game,
+    event: (GameEvent.OnFavoriteClicked) -> Unit
 ) {
     Column(
         Modifier.fillMaxSize()
@@ -72,10 +74,12 @@ fun GameDetail(
                 .clip(CircleShape)
                 .background(tertiaryContainerLight)
                 .align(Alignment.TopEnd)
+                .clickable {
+                    event.invoke(GameEvent.OnFavoriteClicked(game))
+                }
             ){
                 Icon(
-                    modifier = Modifier.align(Alignment.TopEnd)
-                        .padding(8.dp),
+                    modifier = Modifier.padding(8.dp),
                     painter = painterResource(
                         if(game.isFavorite) R.drawable.baseline_bookmark_36
                         else R.drawable.baseline_bookmark_border_36
@@ -124,9 +128,9 @@ fun GameDetail(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                RatingText(game.rating, onSurfaceLight)
+                RatingText(game.rating)
                 Spacer(Modifier.width(12.dp))
-                RatingCountText(game.ratingCount, onSurfaceLight)
+                RatingCountText(game.ratingCount)
             }
             MetacriticText(game.metacritic)
         }
@@ -232,5 +236,5 @@ fun CarouselItem(
 @Preview(showBackground = true)
 @Composable
 fun GameDetailPreview(){
-    GameDetail(createDummyGame())
+    GameDetail(createDummyGame()){}
 }

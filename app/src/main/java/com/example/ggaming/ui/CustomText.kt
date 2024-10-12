@@ -26,7 +26,7 @@ import com.example.ggaming.ui.theme.onSurfaceLight
 import com.example.ggaming.ui.theme.primaryLight
 
 @Composable
-fun RatingText(rating: Double, color: Color = onPrimaryContainerLight){
+fun RatingText(rating: Double, color: Color = onSurfaceLight){
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -44,7 +44,7 @@ fun RatingText(rating: Double, color: Color = onPrimaryContainerLight){
 }
 
 @Composable
-fun RatingCountText(ratingCount: Int, color: Color = onPrimaryContainerLight){
+fun RatingCountText(ratingCount: Int, color: Color = onSurfaceLight){
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
