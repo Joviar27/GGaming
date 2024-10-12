@@ -31,7 +31,8 @@ data class Genre(
 data class Store(
     val id: Int,
     val name: String,
-    val domain: String
+    val domain: String,
+    val image: String
 )
 
 data class Platform(
@@ -55,16 +56,36 @@ fun createDummyGame(id: Int = 0) = Game(
     )),
     genres = listOf(Genre(
         id = 0,
-        name = ""
+        name = "Action"
+    ),Genre(
+        id = 1,
+        name = "Adventure"
+    ),Genre(
+        id = 2,
+        name = "Romance"
     )),
     stores = listOf(Store(
         id = 0,
-        name = "",
-        domain = ""
+        name = "Steam",
+        domain = "",
+        image = ""
+    ),Store(
+        id = 0,
+        name = "Epic Game Store",
+        domain = "",
+        image = ""
     )),
     platforms = listOf(Platform(
         id = 0,
-        name = "",
+        name = "PS5",
+        image = ""
+    ),Platform(
+        id = 1,
+        name = "XBOX",
+        image = ""
+    ),Platform(
+        id = 0,
+        name = "Nintendo Switch",
         image = ""
     ))
 )

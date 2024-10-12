@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">GGaming</string>
+    <string name="metacritic">Metacritic</string>
+
 
     <!-- Game Item   -->
     <string name="release_date">Released: %s</string>
+
+    <!-- Game Detail -->
+    <string name="gallery">Gallery</string>
+    <string name="platform">Platform</string>
+    <string name="store">Store</string>
+
 </resources>

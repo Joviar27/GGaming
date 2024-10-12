@@ -128,43 +128,6 @@ fun GameItem(
     }
 }
 
-@Composable
-fun RatingText(rating: Double){
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(R.drawable.baseline_star_24),
-            contentDescription = null
-        )
-        Spacer(Modifier.width(2.dp))
-        Text(
-            text = rating.toString(),
-            style = GGamingTypography.bodyLarge,
-            color = onPrimaryContainerLight
-        )
-    }
-}
-
-@Composable
-fun RatingCountText(ratingCount: Int){
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            painter = painterResource(R.drawable.baseline_person_24),
-            contentDescription = null,
-            tint = primaryLight
-        )
-        Spacer(Modifier.width(2.dp))
-        Text(
-            text = ratingCount.toString(),
-            style = GGamingTypography.bodySmall,
-            color = onPrimaryContainerLight
-        )
-    }
-}
-
 
 @Preview(showBackground = true)
 @Composable
