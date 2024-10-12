@@ -37,6 +37,12 @@ import com.example.core.domain.model.Game
 import com.example.core.domain.model.createDummyGame
 import com.example.ggaming.R
 import com.example.ggaming.ui.theme.GGamingTypography
+import com.example.ggaming.ui.theme.onPrimaryContainerLight
+import com.example.ggaming.ui.theme.onSurfaceLightHighContrast
+import com.example.ggaming.ui.theme.primaryContainerLight
+import com.example.ggaming.ui.theme.primaryLight
+import com.example.ggaming.ui.theme.surfaceContainerHighLightMediumContrast
+import com.example.ggaming.ui.theme.surfaceContainerLightHighContrast
 import com.example.ggaming.utils.DateUtils
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -54,7 +60,7 @@ fun GameItem(
                 event.invoke(GameEvent.OnItemClicked(game))
             },
         colors = CardDefaults.cardColors(
-            containerColor = primaryContainerLightMediumContrast
+            containerColor = primaryContainerLight
         )
     ){
         Column {
@@ -81,7 +87,7 @@ fun GameItem(
                             else R.drawable.baseline_bookmark_border_24
                         ),
                         contentDescription = null,
-                        tint = backgroundLight
+                        tint = primaryLight
                     )
                 }
             }
@@ -94,13 +100,13 @@ fun GameItem(
                 Column{
                     Text(
                         style = GGamingTypography.headlineSmall,
-                        color = onPrimaryContainerLightMediumContrast,
+                        color = onPrimaryContainerLight,
                         text = game.name
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
                         style = GGamingTypography.labelMedium,
-                        color = onPrimaryContainerLightMediumContrast,
+                        color = onPrimaryContainerLight,
                         text = stringResource(
                             R.string.release_date,
                             DateUtils.dateToString(
@@ -135,7 +141,7 @@ fun RatingText(rating: Double){
         Text(
             text = rating.toString(),
             style = GGamingTypography.bodyLarge,
-            color = onPrimaryContainerLightMediumContrast
+            color = onPrimaryContainerLight
         )
     }
 }
@@ -145,15 +151,16 @@ fun RatingCountText(ratingCount: Int){
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
+        Icon(
             painter = painterResource(R.drawable.baseline_person_24),
             contentDescription = null,
+            tint = primaryLight
         )
         Spacer(Modifier.width(2.dp))
         Text(
             text = ratingCount.toString(),
             style = GGamingTypography.bodySmall,
-            color = onPrimaryContainerLightMediumContrast
+            color = onPrimaryContainerLight
         )
     }
 }
