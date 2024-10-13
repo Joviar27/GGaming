@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -12,6 +15,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField ("String", "BASE_URL", "\"${getProperty("local.properties", "BASE_URL")}\"")
     }
 
     buildTypes {
@@ -30,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -47,4 +54,28 @@ dependencies {
     //Paging
     api(libs.paging.runtime)
     api(libs.paging.compose)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.logging.interceptor)
+}
+
+fun getProperty(fileName: String, propName: String): String {
+    val propsFile = rootProject.file(fileName)
+    if (propsFile.exists()) {
+        val props = Properties()
+        props.load(FileInputStream(propsFile))
+        if (props[propName] != null) {
+            try {
+                return props[propName] as String
+            }catch (e: Exception){
+                throw GradleException("Error returning properties: ${e.message}")
+            }
+        } else {
+            throw GradleException("No such property $propName in file $fileName")
+        }
+    } else {
+        throw GradleException("$fileName does not exist!")
+    }
 }
