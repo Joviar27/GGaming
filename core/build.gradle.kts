@@ -4,6 +4,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt") // Keep this as is
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -16,6 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         buildConfigField ("String", "BASE_URL", "\"${getProperty("local.properties", "BASE_URL")}\"")
+        buildConfigField ("String", "API_KEY", "\"${getProperty("local.properties", "API_KEY")}\"")
     }
 
     buildTypes {
@@ -59,6 +62,14 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
+
+    //Dagger-hilt
+    api(libs.hilt)
+    kapt(libs.hilt.compiler)
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 fun getProperty(fileName: String, propName: String): String {
