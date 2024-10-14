@@ -1,7 +1,7 @@
 package com.example.core.di
 
 import com.example.core.BuildConfig
-import com.example.core.data.remote.ApiService
+import com.example.core.data.remote.network.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -76,7 +76,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService{
+    fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 

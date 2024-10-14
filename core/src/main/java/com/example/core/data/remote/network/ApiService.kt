@@ -1,4 +1,4 @@
-package com.example.core.data.remote
+package com.example.core.data.remote.network
 
 import com.example.core.data.remote.response.GameListResponse
 import retrofit2.http.GET
