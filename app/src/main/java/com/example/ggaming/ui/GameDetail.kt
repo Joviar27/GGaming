@@ -41,14 +41,11 @@ import com.example.ggaming.ui.theme.onPrimaryContainerLight
 import com.example.ggaming.ui.theme.onSecondaryContainerLight
 import com.example.ggaming.ui.theme.onSurfaceLight
 import com.example.ggaming.ui.theme.onTertiaryContainerLight
-import com.example.ggaming.ui.theme.onTertiaryLight
 import com.example.ggaming.ui.theme.primaryContainerLight
-import com.example.ggaming.ui.theme.primaryLight
 import com.example.ggaming.ui.theme.secondaryContainerLight
 import com.example.ggaming.ui.theme.surfaceLight
 import com.example.ggaming.ui.theme.tertiaryContainerLight
-import com.example.ggaming.ui.theme.tertiaryLight
-import com.example.ggaming.utils.DateUtils
+import com.example.core.utils.DateUtils
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable

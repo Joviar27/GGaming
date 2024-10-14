@@ -134,7 +134,7 @@ data class GameItemResponse(
 	val added: Int,
 
 	@field:SerializedName("rating")
-	val rating: Any,
+	val rating: Double,
 
 	@field:SerializedName("metacritic")
 	val metacritic: Int,
@@ -143,10 +143,10 @@ data class GameItemResponse(
 	val playtime: Int,
 
 	@field:SerializedName("short_screenshots")
-	val shortScreenshots: List<ShortScreenshotsItem?>,
+	val shortScreenshots: List<ShortScreenshotsItem>,
 
 	@field:SerializedName("platforms")
-	val platforms: List<PlatformsItem?>,
+	val platforms: List<PlatformsItem>,
 
 	@field:SerializedName("user_game")
 	val userGame: Any,
@@ -158,10 +158,10 @@ data class GameItemResponse(
 	val reviewsTextCount: Int,
 
 	@field:SerializedName("ratings")
-	val ratings: List<RatingsItem?>,
+	val ratings: List<RatingsItem>,
 
 	@field:SerializedName("genres")
-	val genres: List<GenresItem?>,
+	val genres: List<GenresItem>,
 
 	@field:SerializedName("saturated_color")
 	val saturatedColor: String,
@@ -173,7 +173,7 @@ data class GameItemResponse(
 	val addedByStatus: AddedByStatus,
 
 	@field:SerializedName("parent_platforms")
-	val parentPlatforms: List<ParentPlatformsItem?>,
+	val parentPlatforms: List<ParentPlatformsItem>,
 
 	@field:SerializedName("ratings_count")
 	val ratingsCount: Int,
@@ -188,10 +188,10 @@ data class GameItemResponse(
 	val suggestionsCount: Int,
 
 	@field:SerializedName("stores")
-	val stores: List<StoresItem?>,
+	val stores: List<StoresItem>,
 
 	@field:SerializedName("tags")
-	val tags: List<TagsItem?>,
+	val tags: List<TagsItem>,
 
 	@field:SerializedName("background_image")
 	val backgroundImage: String,
