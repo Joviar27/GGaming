@@ -6,7 +6,7 @@ import com.example.core.data.remote.RemoteDataSource
 import com.example.core.data.remote.response.GameItemResponse
 
 class GamePagingSource(
-    private val query: String,
+    private val query: String?,
     private val remoteDataSource: RemoteDataSource,
 ): PagingSource<Int, GameItemResponse>() {
 

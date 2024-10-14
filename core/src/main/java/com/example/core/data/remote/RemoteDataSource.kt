@@ -8,7 +8,7 @@ class RemoteDataSource @Inject constructor(
     private val apiService: ApiService
 ) {
     suspend fun getGameList(
-        search: String,
+        search: String?,
         page: Int,
         pageSize: Int
     ): List<GameItemResponse>{

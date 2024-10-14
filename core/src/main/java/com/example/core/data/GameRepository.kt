@@ -16,7 +16,7 @@ class GameRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : IGameRepository{
 
-    override fun getGameList(query: String): Flow<PagingData<Game>> {
+    override fun getGameList(query: String?): Flow<PagingData<Game>> {
         val pagingConfig = PagingConfig(
             pageSize = PAGE_SIZE
         )

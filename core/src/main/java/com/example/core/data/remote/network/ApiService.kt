@@ -8,7 +8,7 @@ interface ApiService {
 
     @GET("games")
     suspend fun getGameList(
-        @Query("search") search: String,
+        @Query("search") search: String?,
         @Query("page") page: Int,
         @Query("page_size") pageSize: Int
     ): GameListResponse

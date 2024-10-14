@@ -5,5 +5,5 @@ import com.example.core.domain.model.Game
 import kotlinx.coroutines.flow.Flow
 
 interface IGameRepository {
-    fun getGameList(query: String): Flow<PagingData<Game>>
+    fun getGameList(query: String?): Flow<PagingData<Game>>
 }
