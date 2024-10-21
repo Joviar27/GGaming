@@ -68,7 +68,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //LiveData
     api(libs.androidxActivityKtx)
     api(libs.lifecycle.livedata.ktx)
     api(libs.compose.runtime.livedata)
+
+    //Splashscreen
+    implementation(libs.androidx.core.splashscreen)
 }

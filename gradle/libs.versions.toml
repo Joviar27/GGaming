@@ -16,6 +16,7 @@ retrofit = "2.9.0"
 okhttp = "4.9.3"
 hilt = "2.51.1"
 activityKtx = "1.9.2"
+androidxSplashscree = "1.0.0-beta02"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,7 @@ hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.re
 androidxActivityKtx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleRuntimeKtx" }
 compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version = "1.7.3" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxSplashscree" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
