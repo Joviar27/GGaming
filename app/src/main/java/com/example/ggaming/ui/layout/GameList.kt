@@ -1,4 +1,4 @@
-package com.example.ggaming.ui
+package com.example.ggaming.ui.layout
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.domain.model.Game
 import com.example.core.domain.model.createDummyGameList
+import com.example.ggaming.ui.GameEvent
 
 @Composable
 fun GameList(

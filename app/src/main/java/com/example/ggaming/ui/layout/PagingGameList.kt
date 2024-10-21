@@ -1,4 +1,4 @@
-package com.example.ggaming.ui
+package com.example.ggaming.ui.layout
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +18,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.domain.model.Game
 import com.example.core.domain.model.createDummyGameList
+import com.example.ggaming.ui.GameEvent
 import com.example.ggaming.ui.theme.surfaceContainerHighLight
 import com.example.ggaming.ui.theme.tertiaryLight
 import kotlinx.coroutines.flow.MutableStateFlow

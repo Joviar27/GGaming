@@ -30,7 +30,7 @@ import com.example.core.domain.model.Game
 import com.example.core.domain.model.createDummyGameList
 import com.example.ggaming.R
 import com.example.ggaming.ui.GameEvent
-import com.example.ggaming.ui.PagingGameList
+import com.example.ggaming.ui.layout.PagingGameList
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.onPrimaryLight
 import com.example.ggaming.ui.theme.primaryLight

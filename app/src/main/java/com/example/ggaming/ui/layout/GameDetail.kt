@@ -1,4 +1,4 @@
-package com.example.ggaming.ui
+package com.example.ggaming.ui.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -46,6 +46,7 @@ import com.example.ggaming.ui.theme.secondaryContainerLight
 import com.example.ggaming.ui.theme.surfaceLight
 import com.example.ggaming.ui.theme.tertiaryContainerLight
 import com.example.core.utils.DateUtils
+import com.example.ggaming.ui.GameEvent
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable

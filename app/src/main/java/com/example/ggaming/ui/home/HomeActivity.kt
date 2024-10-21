@@ -9,7 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.ggaming.ui.ErrorBottomSheet
+import com.example.ggaming.ui.layout.ErrorBottomSheet
 import com.example.ggaming.ui.GameEvent
 import com.example.ggaming.ui.theme.GGamingTheme
 import dagger.hilt.android.AndroidEntryPoint

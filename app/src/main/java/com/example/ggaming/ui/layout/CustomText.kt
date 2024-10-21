@@ -1,4 +1,4 @@
-package com.example.ggaming.ui
+package com.example.ggaming.ui.layout
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.example.ggaming.R
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.errorContainerLight
-import com.example.ggaming.ui.theme.onPrimaryContainerLight
 import com.example.ggaming.ui.theme.onSurfaceLight
 import com.example.ggaming.ui.theme.primaryLight
 

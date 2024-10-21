@@ -1,4 +1,4 @@
-package com.example.ggaming.ui
+package com.example.ggaming.ui.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ fun ErrorBottomSheet(
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState()
-    
+
     if(show){
         ModalBottomSheet(
             sheetState = sheetState,
