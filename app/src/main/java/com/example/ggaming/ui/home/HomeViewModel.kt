@@ -1,12 +1,12 @@
 package com.example.ggaming.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.example.core.Result
+import com.example.core.domain.model.Game
 import com.example.core.domain.usecase.GetGameListUseCase
-import com.example.ggaming.ui.PagingGameState
+import com.example.ggaming.ui.GameState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,11 +18,11 @@ class HomeViewModel @Inject constructor(
     private val getGameListUseCase: GetGameListUseCase
 ): ViewModel() {
 
-    private val _showErrorEvent = MutableLiveData<String>()
-    val showErrorEvent: LiveData<String> get() = _showErrorEvent
+    private val _state = MutableStateFlow(GameState())
+    val state: StateFlow<GameState> get() = _state
 
-    private val _state = MutableStateFlow(PagingGameState())
-    val state: StateFlow<PagingGameState> get() = _state
+    private val _pagingListState = MutableStateFlow(PagingData.empty<Game>())
+    val pagingListState: StateFlow<PagingData<Game>> get() = _pagingListState
 
 
     init {
@@ -36,15 +36,19 @@ class HomeViewModel @Inject constructor(
                     .getGameList(query)
             ){
                 is Result.Success -> {
-                    _state.value = state.value.copy(
-                        loading = false,
-                        pagingGameList = result.data
-                    )
+                    _pagingListState.value = result.data
                 }
                 is Result.Error ->{
-                    _showErrorEvent.value = result.message
+                    _state.value = state.value.copy(
+                        error = true,
+                        errorMessage = result.message
+                    )
                 }
             }
         }
+    }
+
+    fun dismissError(){
+        _state.value = state.value.copy(error = false)
     }
 }

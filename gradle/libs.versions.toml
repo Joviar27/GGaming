@@ -44,6 +44,8 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 androidxActivityKtx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleRuntimeKtx" }
+compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version = "1.7.3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

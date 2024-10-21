@@ -2,7 +2,6 @@
     <string name="app_name">GGaming</string>
     <string name="metacritic">Metacritic</string>
 
-
     <!-- Game Item   -->
     <string name="release_date">Released: %s</string>
 
@@ -11,4 +10,10 @@
     <string name="platform">Platform</string>
     <string name="store">Store</string>
 
+    <!--  Error  -->
+    <string name="error_title">Oops! Something Wrong</string>
+    <string name="error_message">Error: %s</string>
+
+    <!-- Home   -->
+    <string name="search_label">Find games now</string>
 </resources>

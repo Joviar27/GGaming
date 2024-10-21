@@ -69,4 +69,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     api(libs.androidxActivityKtx)
+    api(libs.lifecycle.livedata.ktx)
+    api(libs.compose.runtime.livedata)
 }

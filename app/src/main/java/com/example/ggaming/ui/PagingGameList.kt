@@ -24,13 +24,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun PagingGameList(
+    modifier: Modifier = Modifier,
     gamePagingItems: LazyPagingItems<Game>,
     onLoadMore: Boolean,
     event: (GameEvent) -> Unit
 ) {
     LazyColumn(
-        Modifier.padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(gamePagingItems.itemCount){ index ->
             gamePagingItems[index]?.let {
@@ -40,14 +40,16 @@ fun PagingGameList(
                 )
             }
         }
-        item {
-            LoadMoreLoadingItem(onLoadMore)
+        if(onLoadMore){
+            item {
+                LoadMoreLoadingItem()
+            }
         }
     }
 }
 
 @Composable
-fun LoadMoreLoadingItem(show: Boolean){
+fun LoadMoreLoadingItem(){
     Box(
         Modifier.fillMaxWidth()
             .wrapContentHeight(),
@@ -76,5 +78,5 @@ fun PagingGameListPreview(){
 @Preview(showBackground = true)
 @Composable
 fun LoadingItemPreview(){
-    LoadMoreLoadingItem(true)
+    LoadMoreLoadingItem()
 }
