@@ -44,7 +44,7 @@ data class Platform(
 fun createDummyGame(id: Int = 0) = Game(
     id = id,
     isFavorite = false,
-    name = "Lorem Ipsum",
+    name = "Lorem Ipsum Dolor Aset Kucing Terbang Banyak Sekali",
     releaseDate = Date(),
     rating = 4.44,
     ratingCount = 6777,
