@@ -17,4 +17,5 @@
     <!-- Home   -->
     <string name="search_label">Find games now</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

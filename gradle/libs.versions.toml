@@ -55,4 +55,5 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-parcelize = { id = "kotlin-parcelize", version.ref = "kotlin" }
+android-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 
