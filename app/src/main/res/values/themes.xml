@@ -4,8 +4,8 @@
     <style name="Theme.GGaming" parent="android:Theme.Material.Light.NoActionBar" />
 
     <style name="Theme.GGaming.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#FFFFF7FA</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_bookmark_border_24</item>
+        <item name="windowSplashScreenBackground">#FF784F83</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_logo_ggaming</item>
         <item name="postSplashScreenTheme">@style/Theme.GGaming</item>
     </style>
 </resources>
