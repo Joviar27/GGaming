@@ -42,7 +42,7 @@ class HomeActivity : ComponentActivity() {
                         }
                         is GameEvent.OnItemClicked ->{
                             val intent = Intent(this, DetailActivity::class.java).apply {
-                                putExtra(DetailActivity.GAME_DETAIL, event.game)
+                                putExtra(DetailActivity.GAME_NAME, event.game.name)
                             }
                             startActivity(intent)
                         }

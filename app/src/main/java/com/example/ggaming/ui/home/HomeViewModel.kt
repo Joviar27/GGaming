@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import com.example.core.Result
 import com.example.core.domain.model.Game
 import com.example.core.domain.usecase.GetGameListUseCase
-import com.example.ggaming.ui.GameState
+import com.example.ggaming.ui.GameListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,8 +18,8 @@ class HomeViewModel @Inject constructor(
     private val getGameListUseCase: GetGameListUseCase
 ): ViewModel() {
 
-    private val _state = MutableStateFlow(GameState())
-    val state: StateFlow<GameState> get() = _state
+    private val _state = MutableStateFlow(GameListState())
+    val state: StateFlow<GameListState> get() = _state
 
     private val _pagingListState = MutableStateFlow(PagingData.empty<Game>())
     val pagingListState: StateFlow<PagingData<Game>> get() = _pagingListState

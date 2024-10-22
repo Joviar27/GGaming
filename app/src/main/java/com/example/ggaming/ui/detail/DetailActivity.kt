@@ -1,45 +1,64 @@
 package com.example.ggaming.ui.detail
 
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.core.domain.model.Game
+import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ggaming.ui.GameEvent
+import com.example.ggaming.ui.layout.ErrorBottomSheet
 import com.example.ggaming.ui.theme.GGamingTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailActivity : ComponentActivity() {
 
-    private val game by lazy {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-            intent.getParcelableExtra(GAME_DETAIL, Game::class.java)
-        }else{
-            @Suppress("Deprecation")
-            intent.getParcelableExtra(GAME_DETAIL) as Game?
-        }
+    private val viewModel: DetailViewModel by viewModels()
+
+    private val gameName by lazy {
+        intent.getStringExtra(GAME_NAME)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        gameName?.let {
+            viewModel.getGameDetail(it)
+        } ?: finish()
+        initView()
+    }
+
+    private fun initView(){
         setContent {
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
             GGamingTheme {
-                game?.let {
-                    DetailContent(it) { event ->
-                        when(event){
-                            is GameEvent.BackEvent -> finish()
-                            is GameEvent.OnFavoriteClicked ->{
-                                //TODO: Add to favorite
-                            }
+                DetailContent(
+                    loading = state.loading,
+                    game = state.game
+                ) { event ->
+                    when(event){
+                        is GameEvent.BackEvent -> finish()
+                        is GameEvent.OnFavoriteClicked ->{
+                            //TODO: Add to favorite
                         }
                     }
-                } ?: finish()
+                }
+                ErrorBottomSheet(
+                    message = state.errorMessage,
+                    show = state.error
+                ) {
+                    viewModel.dismissError()
+                }
             }
         }
     }
 
     companion object{
-        const val GAME_DETAIL = "game-detail"
+        const val GAME_NAME = "game-name"
     }
 }

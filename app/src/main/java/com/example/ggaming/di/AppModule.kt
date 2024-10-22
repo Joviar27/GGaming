@@ -1,5 +1,7 @@
 package com.example.ggaming.di
 
+import com.example.core.domain.usecase.GetGameDetailInteractor
+import com.example.core.domain.usecase.GetGameDetailUseCase
 import com.example.core.domain.usecase.GetGameListInteractor
 import com.example.core.domain.usecase.GetGameListUseCase
 import dagger.Binds
@@ -15,4 +17,8 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideGetGameListUseCase(getGameListUseCase: GetGameListInteractor): GetGameListUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideGetGameDetailUseCase(getGameDetailUseCase: GetGameDetailInteractor): GetGameDetailUseCase
 }

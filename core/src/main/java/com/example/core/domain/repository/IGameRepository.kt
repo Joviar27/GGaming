@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IGameRepository {
     fun getGameList(query: String?): Flow<Result<PagingData<Game>>>
+    fun getGameDetail(name: String?): Flow<Result<Game>>
 }

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
-@Parcelize
 data class Game (
     val id: Int,
     val isFavorite: Boolean,
@@ -18,34 +17,30 @@ data class Game (
     val genres: List<Genre>,
     val stores: List<Store>,
     val platforms: List<Platform>
-): Parcelable
+)
 
-@Parcelize
 data class ScreenShoot(
     val id: Int,
     val image: String
-): Parcelable
+)
 
-@Parcelize
 data class Genre(
     val id: Int,
     val name: String
-): Parcelable
+)
 
-@Parcelize
 data class Store(
     val id: Int,
     val name: String,
     val domain: String,
     val image: String
-): Parcelable
+)
 
-@Parcelize
 data class Platform(
     val id: Int,
     val name: String,
     val image: String
-): Parcelable
+)
 
 fun createDummyGame(id: Int = 0) = Game(
     id = id,

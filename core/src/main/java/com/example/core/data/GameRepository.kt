@@ -39,7 +39,23 @@ class GameRepository @Inject constructor(
             }
             emitAll(result)
         }catch (e: Exception){
-            Log.d("error", "${this.javaClass.simpleName}: ${e.message}")
+            Log.d("error getGameList", "${this.javaClass.simpleName}: ${e.message}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    override fun getGameDetail(name: String?): Flow<Result<Game>> = flow {
+        try {
+            val gameResponse = remoteDataSource.getGameList(
+                name,
+                1,
+                1
+            )
+            if(gameResponse.isNotEmpty()){
+                emit(Result.Success(DataMapper.mapResponseToDomain(gameResponse.first(), false)))
+            }else throw IllegalArgumentException("Unable to find game detail")
+        }catch (e: Exception){
+            Log.d("error getGameDetail", "${this.javaClass.simpleName}: ${e.message}")
             emit(Result.Error(e.message.toString()))
         }
     }

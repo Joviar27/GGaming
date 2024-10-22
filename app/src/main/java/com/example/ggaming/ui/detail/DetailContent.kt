@@ -1,9 +1,12 @@
 package com.example.ggaming.ui.detail
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -11,9 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.domain.model.Game
@@ -24,11 +27,14 @@ import com.example.ggaming.ui.layout.GameDetail
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.onPrimaryLight
 import com.example.ggaming.ui.theme.primaryLight
+import com.example.ggaming.ui.theme.surfaceContainerHighLight
+import com.example.ggaming.ui.theme.tertiaryLight
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailContent(
-    game: Game,
+    game: Game?,
+    loading: Boolean,
     event: (GameEvent) -> Unit
 ){
     Scaffold(
@@ -49,7 +55,7 @@ fun DetailContent(
                     Text(
                         modifier = Modifier.padding(start = 8.dp),
                         style = GGamingTypography.headlineSmall,
-                        text = game.name
+                        text = game?.name ?: ""
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -59,11 +65,23 @@ fun DetailContent(
             )
         }
     ) { innerPadding ->
-        GameDetail(
-            modifier = Modifier.padding(innerPadding),
-            game = game
-        ) {
-            event.invoke(it)
+        Box(Modifier.fillMaxSize()){
+            game?.let {
+                GameDetail(
+                    modifier = Modifier.padding(innerPadding),
+                    game = game
+                ) {
+                    event.invoke(it)
+                }
+            }
+            if(loading){
+                CircularProgressIndicator(
+                    modifier = Modifier.width(64.dp)
+                        .align(Alignment.Center),
+                    color = tertiaryLight,
+                    trackColor = surfaceContainerHighLight
+                )
+            }
         }
     }
 }
@@ -71,5 +89,5 @@ fun DetailContent(
 @Preview(showBackground = true)
 @Composable
 fun DetailContentPreview(){
-    DetailContent(createDummyGame()) { }
+    DetailContent(createDummyGame(),true) { }
 }

@@ -4,7 +4,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
 }
@@ -69,13 +69,15 @@ dependencies {
     api(libs.lifecycle.livedata.ktx)
     api(libs.compose.runtime.livedata)
 
+    //Room
+    implementation(libs.room.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+
     //Dagger-hilt
     api(libs.hilt)
-    kapt(libs.hilt.compiler)
-}
-
-kapt {
-    correctErrorTypes = true
+    ksp(libs.hilt.compiler)
 }
 
 fun getProperty(fileName: String, propName: String): String {
