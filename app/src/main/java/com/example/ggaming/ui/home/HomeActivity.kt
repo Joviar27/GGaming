@@ -20,9 +20,9 @@ class HomeActivity : ComponentActivity() {
     private val viewmodel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        installSplashScreen()
 
         initView()
     }
