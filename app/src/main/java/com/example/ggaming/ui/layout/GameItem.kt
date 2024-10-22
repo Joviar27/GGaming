@@ -96,7 +96,7 @@ fun GameItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(Modifier.width(300.dp)){
+                Column(Modifier.weight(4f)){
                     Text(
                         style = GGamingTypography.headlineSmall,
                         color = onSurfaceLight,
@@ -116,6 +116,7 @@ fun GameItem(
                     )
                 }
                 Column(
+                    Modifier.weight(1f),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     RatingText(game.rating)

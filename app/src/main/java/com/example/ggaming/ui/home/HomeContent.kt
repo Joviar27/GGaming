@@ -1,5 +1,6 @@
 package com.example.ggaming.ui.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -65,37 +66,39 @@ fun HomeContent(
             )
         }
     ) { innerPadding ->
-        Column(
-            Modifier.fillMaxSize()
-                .padding(innerPadding)
-                .padding(16.dp)
-        ) {
-            TextField(
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                value = search,
-                textStyle = GGamingTypography.bodyMedium,
-                label = {
-                    Text(
-                        style = GGamingTypography.labelLarge,
-                        text = stringResource(R.string.search_label)
-                    )
-                },
-                onValueChange = {
-                    search = it
-                    event.invoke(GameEvent.OnSearchValueChanged(it))
-                }
-            )
-            PagingGameList(
-                gamePagingItems = pagingGameItems,
-                onLoadMore = pagingGameItems.loadState.append is LoadState.Loading
+        Box(Modifier.padding(innerPadding)){
+            Column(
+                Modifier.fillMaxSize()
+                    .padding(16.dp)
             ) {
-                event.invoke(it)
+                TextField(
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    value = search,
+                    textStyle = GGamingTypography.bodyMedium,
+                    label = {
+                        Text(
+                            style = GGamingTypography.labelLarge,
+                            text = stringResource(R.string.search_label)
+                        )
+                    },
+                    onValueChange = {
+                        search = it
+                        event.invoke(GameEvent.OnSearchValueChanged(it))
+                    }
+                )
+                PagingGameList(
+                    gamePagingItems = pagingGameItems,
+                    onLoadMore = pagingGameItems.loadState.append is LoadState.Loading
+                ) {
+                    event.invoke(it)
+                }
             }
             if(pagingGameItems.loadState.refresh is LoadState.Loading){
                 CircularProgressIndicator(
-                    modifier = Modifier.width(64.dp),
+                    modifier = Modifier.width(64.dp)
+                        .align(Alignment.Center),
                     color = tertiaryLight,
                     trackColor = surfaceContainerHighLight
                 )
