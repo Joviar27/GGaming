@@ -76,6 +76,7 @@ fun HomeContent(
                         .fillMaxWidth()
                         .padding(bottom = 16.dp),
                     value = search,
+                    maxLines = 1,
                     textStyle = GGamingTypography.bodyMedium,
                     label = {
                         Text(
