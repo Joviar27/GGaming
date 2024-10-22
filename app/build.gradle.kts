@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -69,11 +71,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //LiveData
-    api(libs.androidxActivityKtx)
-    api(libs.lifecycle.livedata.ktx)
-    api(libs.compose.runtime.livedata)
-
     //Splashscreen
     implementation(libs.androidx.core.splashscreen)
+
+    //Dagger-hilt
+    api(libs.hilt)
+    kapt(libs.hilt.compiler)
 }

@@ -4,7 +4,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt") // Keep this as is
+    id("kotlin-kapt")
     alias(libs.plugins.hilt)
 }
 
@@ -62,6 +62,11 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
+
+    //LiveData
+    api(libs.androidxActivityKtx)
+    api(libs.lifecycle.livedata.ktx)
+    api(libs.compose.runtime.livedata)
 
     //Dagger-hilt
     api(libs.hilt)
