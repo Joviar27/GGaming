@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -51,16 +52,17 @@ import com.example.ggaming.ui.GameEvent
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun GameDetail(
+    modifier: Modifier = Modifier,
     game: Game,
     event: (GameEvent.OnFavoriteClicked) -> Unit
 ) {
     Column(
-        Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
             .verticalScroll(rememberScrollState())
             .background(surfaceLight),
     ) {
         Box(modifier = Modifier.fillMaxWidth()
-                .height(200.dp)
+                .height(230.dp)
         ){
             GlideImage(
                 modifier = Modifier.fillMaxSize(),
@@ -89,7 +91,7 @@ fun GameDetail(
         }
         LazyRow(
             Modifier.fillMaxWidth()
-                .padding(vertical = 8.dp)
+                .padding(top = 16.dp, bottom = 12.dp)
                 .padding(start = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -103,12 +105,16 @@ fun GameDetail(
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Text(
+                modifier = Modifier.weight(5f),
                 text = game.name,
                 color = onSurfaceLight,
                 style = GGamingTypography.headlineMedium
             )
+            Spacer(Modifier.width(8.dp))
             Text(
-                modifier = Modifier.align(Alignment.CenterVertically),
+                textAlign = TextAlign.End,
+                modifier = Modifier.align(Alignment.CenterVertically)
+                    .weight(2f),
                 text = stringResource(
                     R.string.release_date,
                     DateUtils.dateToString(
@@ -121,7 +127,7 @@ fun GameDetail(
         }
         Row(Modifier.fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .padding(top = 4.dp),
+            .padding(top = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -234,5 +240,5 @@ fun CarouselItem(
 @Preview(showBackground = true)
 @Composable
 fun GameDetailPreview(){
-    GameDetail(createDummyGame()){}
+    GameDetail(game = createDummyGame()){}
 }

@@ -16,11 +16,17 @@
         android:theme="@style/Theme.GGaming.Starting"
         tools:targetApi="31">
         <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/Theme.GGaming" />
+        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.GGaming.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,5 +1,6 @@
 package com.example.ggaming.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.ggaming.ui.layout.ErrorBottomSheet
 import com.example.ggaming.ui.GameEvent
+import com.example.ggaming.ui.detail.DetailActivity
 import com.example.ggaming.ui.theme.GGamingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +41,10 @@ class HomeActivity : ComponentActivity() {
                             //TODO: Save to favorite
                         }
                         is GameEvent.OnItemClicked ->{
-                            //TODO: Go to detail page
+                            val intent = Intent(this, DetailActivity::class.java).apply {
+                                putExtra(DetailActivity.GAME_DETAIL, event.game)
+                            }
+                            startActivity(intent)
                         }
                         is GameEvent.OnSearchValueChanged ->{
                             viewmodel.getGameList(event.search)
