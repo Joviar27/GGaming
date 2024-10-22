@@ -11,13 +11,15 @@ object DateUtils {
         return formatter.format(date)
     }
 
-    fun stringToDate(dateString: String): Date? {
+    fun stringToDate(dateString: String?): Date? {
         val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return try {
-            format.parse(dateString)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+        return dateString?.let {
+             try {
+                format.parse(dateString)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
         }
     }
 }

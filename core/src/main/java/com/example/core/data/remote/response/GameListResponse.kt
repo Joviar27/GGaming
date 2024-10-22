@@ -23,7 +23,7 @@ data class Store(
 	val gamesCount: Int,
 
 	@field:SerializedName("domain")
-	val domain: String,
+	val domain: String? = null,
 
 	@field:SerializedName("name")
 	val name: String,
@@ -32,7 +32,7 @@ data class Store(
 	val id: Int,
 
 	@field:SerializedName("image_background")
-	val imageBackground: String,
+	val imageBackground: String? = null,
 
 	@field:SerializedName("slug")
 	val slug: String
@@ -143,10 +143,10 @@ data class GameItemResponse(
 	val playtime: Int,
 
 	@field:SerializedName("short_screenshots")
-	val shortScreenshots: List<ShortScreenshotsItem>,
+	val shortScreenshots: List<ShortScreenshotsItem>? = null,
 
 	@field:SerializedName("platforms")
-	val platforms: List<PlatformsItem>,
+	val platforms: List<PlatformsItem>? = null,
 
 	@field:SerializedName("user_game")
 	val userGame: Any,
@@ -161,7 +161,7 @@ data class GameItemResponse(
 	val ratings: List<RatingsItem>,
 
 	@field:SerializedName("genres")
-	val genres: List<GenresItem>,
+	val genres: List<GenresItem>? = null,
 
 	@field:SerializedName("saturated_color")
 	val saturatedColor: String,
@@ -182,19 +182,19 @@ data class GameItemResponse(
 	val slug: String,
 
 	@field:SerializedName("released")
-	val released: String,
+	val released: String? = null,
 
 	@field:SerializedName("suggestions_count")
 	val suggestionsCount: Int,
 
 	@field:SerializedName("stores")
-	val stores: List<StoresItem>,
+	val stores: List<StoresItem>? = null,
 
 	@field:SerializedName("tags")
 	val tags: List<TagsItem>,
 
 	@field:SerializedName("background_image")
-	val backgroundImage: String,
+	val backgroundImage: String? = null,
 
 	@field:SerializedName("tba")
 	val tba: Boolean,
@@ -272,7 +272,7 @@ data class Platform(
 	val id: Int,
 
 	@field:SerializedName("image_background")
-	val imageBackground: String,
+	val imageBackground: String? = null,
 
 	@field:SerializedName("slug")
 	val slug: String

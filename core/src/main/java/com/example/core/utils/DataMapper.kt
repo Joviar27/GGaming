@@ -19,34 +19,34 @@ object DataMapper {
             rating = response.rating,
             ratingCount = response.ratingsCount,
             metacritic = response.metacritic,
-            background = response.backgroundImage,
-            screenShoots = response.shortScreenshots.map {
+            background = response.backgroundImage ?: "",
+            screenShoots = response.shortScreenshots?.map {
                 ScreenShoot(
                     id = it.id,
                     image = it.image
                 )
-            },
-            genres = response.genres.map {
+            } ?: listOf(),
+            genres = response.genres?.map {
                 Genre(
                     id = it.id,
                     name = it.name
                 )
-            },
-            stores = response.stores.map {
+            } ?: listOf(),
+            stores = response.stores?.map {
                 Store(
                     id = it.store.id,
                     name = it.store.name,
-                    image = it.store.imageBackground,
-                    domain = it.store.domain
+                    image = it.store.imageBackground ?: "",
+                    domain = it.store.domain ?: ""
                 )
-            },
-            platforms = response.platforms.map {
+            } ?: listOf(),
+            platforms = response.platforms?.map {
                 Platform(
                     id = it.platform.id,
                     name = it.platform.name,
-                    image = it.platform.imageBackground
+                    image = it.platform.imageBackground ?: ""
                 )
-            }
+            } ?: listOf()
         )
     }
 }
