@@ -31,18 +31,17 @@ class HomeViewModel @Inject constructor(
 
     fun getGameList(query: String?){
         viewModelScope.launch {
-            when(
-                val result = getGameListUseCase
-                    .getGameList(query)
-            ){
-                is Result.Success -> {
-                    _pagingListState.value = result.data
-                }
-                is Result.Error ->{
-                    _state.value = state.value.copy(
-                        error = true,
-                        errorMessage = result.message
-                    )
+            getGameListUseCase.getGameList(query).collect{ result ->
+                when(result){
+                    is Result.Success -> {
+                        _pagingListState.value = result.data
+                    }
+                    is Result.Error ->{
+                        _state.value = state.value.copy(
+                            error = true,
+                            errorMessage = result.message
+                        )
+                    }
                 }
             }
         }
