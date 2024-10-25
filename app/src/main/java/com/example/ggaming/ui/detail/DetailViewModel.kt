@@ -3,9 +3,10 @@ package com.example.ggaming.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.Result
+import com.example.core.domain.model.Game
+import com.example.core.domain.usecase.FavoriteGameUseCase
 import com.example.core.domain.usecase.GetGameDetailUseCase
 import com.example.ggaming.ui.GameDetailState
-import com.example.ggaming.ui.GameListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,31 +15,68 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val getGameDetailUseCase: GetGameDetailUseCase
+    private val getGameDetailUseCase: GetGameDetailUseCase,
+    private val favoriteGameUseCase: FavoriteGameUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(GameDetailState())
     val state: StateFlow<GameDetailState> get() = _state
 
-    fun getGameDetail(name: String){
+    fun getGameDetail(id: String){
         viewModelScope.launch {
             showLoading(true)
-            getGameDetailUseCase.getGameDetail(name).collect{ result ->
-                when(result){
-                    is Result.Success ->{
-                        showLoading(false)
-                        _state.value = state.value.copy(
-                            game = result.data
-                        )
-                    }
-                    is Result.Error ->{
-                        showLoading(false)
-                        _state.value = state.value.copy(
-                            errorMessage = result.message,
-                            error = true
-                        )
-                    }
+            getGameDetailUseCase.getGameDetail(id).collect{ result ->
+                handleResult(result){
+                    _state.value = state.value.copy(
+                        game = (result as Result.Success).data
+                    )
                 }
+            }
+        }
+    }
+
+    fun handleFavoriteClicked(game: Game){
+        if(state.value.game?.isFavorite == true){
+            removeFavorite(game.id)
+        }else addFavorite(game)
+    }
+
+    private fun addFavorite(game: Game){
+        viewModelScope.launch {
+            favoriteGameUseCase.insertFavoriteGame(game).collect{ result ->
+                handleResult(result){
+                    _state.value = state.value.copy(
+                        game = state.value.game?.copy(isFavorite = true)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun removeFavorite(gameId: String) {
+        viewModelScope.launch {
+            favoriteGameUseCase.removeFavoriteGame(gameId).collect{ result ->
+                handleResult(result){
+                    _state.value = state.value.copy(
+                        game = state.value.game?.copy(isFavorite = false)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun <T>handleResult(result: Result<T>, success: () -> Unit){
+        when(result){
+            is Result.Success ->{
+                showLoading(false)
+                success.invoke()
+            }
+            is Result.Error ->{
+                showLoading(false)
+                _state.value = state.value.copy(
+                    errorMessage = result.message,
+                    error = true
+                )
             }
         }
     }

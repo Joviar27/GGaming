@@ -47,6 +47,7 @@ import com.example.ggaming.ui.theme.secondaryContainerLight
 import com.example.ggaming.ui.theme.surfaceLight
 import com.example.ggaming.ui.theme.tertiaryContainerLight
 import com.example.core.utils.DateUtils
+import com.example.core.utils.TextUtils
 import com.example.ggaming.ui.GameEvent
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -66,7 +67,7 @@ fun GameDetail(
         ){
             GlideImage(
                 modifier = Modifier.fillMaxSize(),
-                model = game.background,
+                model = game.additionalBackground,
                 contentScale = ContentScale.Crop,
                 contentDescription = null
             )
@@ -141,15 +142,46 @@ fun GameDetail(
 
         Text(
             modifier = Modifier.padding(start = 16.dp, top = 16.dp),
-            text = stringResource(R.string.gallery),
+            text = stringResource(R.string.description),
+            style = GGamingTypography.headlineSmall
+        )
+        Text(
+            modifier = Modifier.padding(horizontal = 16.dp)
+                .padding(top = 8.dp),
+            text = TextUtils.htmlToText(game.description).toString(),
+            style = GGamingTypography.bodyMedium
+        )
+
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = 4.dp),
+            text = stringResource(R.string.publishers),
             style = GGamingTypography.headlineSmall
         )
         LazyRow(Modifier.padding(start = 16.dp, top = 8.dp)
             .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(game.screenShoots){
-                ScreenShootItem(it.image)
+            items(game.publishers){
+                LargeCarouselItem(
+                    name = it.name,
+                    image = it.image
+                )
+            }
+        }
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+            text = stringResource(R.string.developers),
+            style = GGamingTypography.headlineSmall
+        )
+        LazyRow(Modifier.padding(start = 16.dp, top = 8.dp)
+            .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(game.developers){
+                LargeCarouselItem(
+                    name = it.name,
+                    image = it.image
+                )
             }
         }
 
@@ -198,15 +230,30 @@ fun GenreChip(genreName: String){
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ScreenShootItem(image: String){
-    GlideImage(
+fun LargeCarouselItem(
+    name: String,
+    image: String
+){
+    Card(
         modifier = Modifier.width(250.dp)
-            .height(200.dp)
-            .clip(RoundedCornerShape(8.dp)),
-        model = image,
-        contentDescription = null,
-        contentScale = ContentScale.Crop
-    )
+            .height(200.dp),
+        colors = CardDefaults.cardColors(containerColor = primaryContainerLight)
+    ) {
+        GlideImage(
+            modifier = Modifier.fillMaxWidth()
+                .height(150.dp)
+                .clip(RoundedCornerShape(8.dp)),
+            model = image,
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+        Text(
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
+            text = name,
+            style = GGamingTypography.titleMedium,
+            color = onPrimaryContainerLight
+        )
+    }
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)

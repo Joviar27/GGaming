@@ -55,7 +55,11 @@ fun ErrorBottomSheetContent(message: String){
         )
         Spacer(Modifier.height(16.dp))
         Text(
-            text = stringResource(R.string.error_message, message),
+            text = if(message==""){
+                stringResource(R.string.generic_error)
+            }else{
+                stringResource(R.string.error_message, message)
+            },
             color = onSurfaceLight,
             style = GGamingTypography.bodyLarge
         )

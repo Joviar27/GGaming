@@ -32,7 +32,7 @@ class HomeActivity : ComponentActivity() {
     private fun initView(){
         setContent {
             val state by viewmodel.state.collectAsStateWithLifecycle()
-            val pagingGameItems = viewmodel.pagingListState.collectAsLazyPagingItems()
+            val pagingGameItems = viewmodel.gamesList.collectAsLazyPagingItems()
 
             GGamingTheme {
                 HomeContent(pagingGameItems){ event ->
@@ -42,19 +42,19 @@ class HomeActivity : ComponentActivity() {
                         }
                         is GameEvent.OnItemClicked ->{
                             val intent = Intent(this, DetailActivity::class.java).apply {
-                                putExtra(DetailActivity.GAME_NAME, event.game.name)
+                                putExtra(DetailActivity.GAME_ID, event.game.id)
                             }
                             startActivity(intent)
                         }
                         is GameEvent.OnSearchValueChanged ->{
-                            viewmodel.getGameList(event.search)
+                            viewmodel.updateQuery(event.search)
                         }
                     }
                 }
             }
             ErrorBottomSheet(
                 message = state.errorMessage,
-                show = state.error
+                show = state.error || pagingGameItems.loadState.mediator?.hasError == true
             ) {
                 viewmodel.dismissError()
             }

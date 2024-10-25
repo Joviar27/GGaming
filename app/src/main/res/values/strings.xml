@@ -6,7 +6,9 @@
     <string name="release_date">Released: %s</string>
 
     <!-- Game Detail -->
-    <string name="gallery">Gallery</string>
+    <string name="description">Description</string>
+    <string name="publishers">Publishers</string>
+    <string name="developers">Developers</string>
     <string name="platform">Platform</string>
     <string name="store">Store</string>
 
@@ -18,4 +20,7 @@
     <string name="search_label">Find games now</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_favorite">Favorite</string>
+
+    <!-- Generic Error -->
+    <string name="generic_error">"Please try again"</string>
 </resources>

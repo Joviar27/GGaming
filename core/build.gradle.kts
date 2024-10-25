@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.room.runtime)
+    implementation(libs.room.paging)
     ksp(libs.room.compiler)
 
     //Dagger-hilt

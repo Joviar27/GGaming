@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface GetGameListUseCase {
     suspend fun getGameList(
         query: String?
-    ): Flow<Result<PagingData<Game>>>
+    ): Flow<PagingData<Game>>
 }

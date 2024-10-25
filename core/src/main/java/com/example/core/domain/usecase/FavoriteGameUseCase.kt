@@ -1,14 +1,10 @@
-package com.example.core.domain.repository
+package com.example.core.domain.usecase
 
-import androidx.paging.PagingData
 import com.example.core.Result
 import com.example.core.domain.model.Game
 import kotlinx.coroutines.flow.Flow
 
-interface IGameRepository {
-    fun getGameList(query: String?): Flow<PagingData<Game>>
-    fun getGameDetail(id: String): Flow<Result<Game>>
-
+interface FavoriteGameUseCase {
     fun getFavoriteGameList(): Flow<Result<List<Game>>>
     fun insertFavoriteGame(game: Game): Flow<Result<Unit>>
     fun removeFavoriteGame(gameId: String): Flow<Result<Unit>>

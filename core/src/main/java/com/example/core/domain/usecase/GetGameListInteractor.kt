@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetGameListInteractor @Inject constructor(
     private val gameRepository: IGameRepository
 ): GetGameListUseCase {
-    override suspend fun getGameList(query: String?): Flow<Result<PagingData<Game>>> {
+    override suspend fun getGameList(query: String?): Flow<PagingData<Game>> {
         return gameRepository.getGameList(query)
     }
 }

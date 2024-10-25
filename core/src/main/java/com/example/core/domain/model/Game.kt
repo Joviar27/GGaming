@@ -1,11 +1,9 @@
 package com.example.core.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 data class Game (
-    val id: Int,
+    val id: String,
     val isFavorite: Boolean,
     val name: String,
     val releaseDate: Date = Date(),
@@ -13,17 +11,14 @@ data class Game (
     val ratingCount: Int,
     val metacritic: Int,
     val background: String,
-    val screenShoots: List<ScreenShoot>,
+    val additionalBackground: String,
+    val description: String,
     val genres: List<Genre>,
     val stores: List<Store>,
-    val platforms: List<Platform>
+    val platforms: List<Platform>,
+    val publishers: List<Publisher>,
+    val developers: List<Developer>
 )
-
-data class ScreenShoot(
-    val id: Int,
-    val image: String
-)
-
 data class Genre(
     val id: Int,
     val name: String
@@ -42,8 +37,20 @@ data class Platform(
     val image: String
 )
 
+data class Publisher(
+    val id: Int,
+    val name: String,
+    val image: String
+)
+
+data class Developer(
+    val id: Int,
+    val name: String,
+    val image: String
+)
+
 fun createDummyGame(id: Int = 0) = Game(
-    id = id,
+    id = id.toString(),
     isFavorite = false,
     name = "Lorem Ipsum Dolor",
     releaseDate = Date(),
@@ -51,10 +58,8 @@ fun createDummyGame(id: Int = 0) = Game(
     ratingCount = 6777,
     metacritic = 87,
     background = "",
-    screenShoots = listOf(ScreenShoot(
-        id = 0,
-        image = ""
-    )),
+    additionalBackground = "",
+    description = "Lorem Ipsum Dolor Amet Something Something",
     genres = listOf(Genre(
         id = 0,
         name = "Action"
@@ -88,7 +93,21 @@ fun createDummyGame(id: Int = 0) = Game(
         id = 0,
         name = "Nintendo Switch",
         image = ""
-    ))
+    )),
+    developers = listOf(
+        Developer(
+            id = 0,
+            name = "Rocksteady Studio",
+            image = ""
+        )
+    ),
+    publishers = listOf(
+        Publisher(
+            id = 0,
+            name = "Electronic Art Games",
+            image = ""
+        )
+    )
 )
 
 fun createDummyGameList(amount:Int): List<Game>{

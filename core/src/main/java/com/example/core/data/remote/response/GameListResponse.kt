@@ -14,7 +14,7 @@ data class GameListResponse(
 	val count: Int,
 
 	@field:SerializedName("results")
-	val results: List<GameItemResponse>,
+	val results: List<GameItemResponse>?,
 )
 
 data class Store(

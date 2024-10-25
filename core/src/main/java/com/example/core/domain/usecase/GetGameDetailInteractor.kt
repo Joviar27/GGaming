@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetGameDetailInteractor @Inject constructor(
     private val gameRepository: GameRepository
 ): GetGameDetailUseCase {
-    override suspend fun getGameDetail(name: String): Flow<Result<Game>> {
-        return gameRepository.getGameDetail(name)
+    override suspend fun getGameDetail(id: String): Flow<Result<Game>> {
+        return gameRepository.getGameDetail(id)
     }
 }

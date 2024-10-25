@@ -1,7 +1,6 @@
 package com.example.ggaming.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,15 +17,15 @@ class DetailActivity : ComponentActivity() {
 
     private val viewModel: DetailViewModel by viewModels()
 
-    private val gameName by lazy {
-        intent.getStringExtra(GAME_NAME)
+    private val gameId by lazy {
+        intent.getStringExtra(GAME_ID)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        gameName?.let {
+        gameId?.let {
             viewModel.getGameDetail(it)
         } ?: finish()
         initView()
@@ -44,7 +43,7 @@ class DetailActivity : ComponentActivity() {
                     when(event){
                         is GameEvent.BackEvent -> finish()
                         is GameEvent.OnFavoriteClicked ->{
-                            //TODO: Add to favorite
+                            viewModel.handleFavoriteClicked(event.game)
                         }
                     }
                 }
@@ -59,6 +58,6 @@ class DetailActivity : ComponentActivity() {
     }
 
     companion object{
-        const val GAME_NAME = "game-name"
+        const val GAME_ID = "game-id"
     }
 }

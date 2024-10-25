@@ -1,5 +1,7 @@
 package com.example.ggaming.di
 
+import com.example.core.domain.usecase.FavoriteGameInteractor
+import com.example.core.domain.usecase.FavoriteGameUseCase
 import com.example.core.domain.usecase.GetGameDetailInteractor
 import com.example.core.domain.usecase.GetGameDetailUseCase
 import com.example.core.domain.usecase.GetGameListInteractor
@@ -21,4 +23,8 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideGetGameDetailUseCase(getGameDetailUseCase: GetGameDetailInteractor): GetGameDetailUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideFavoriteGameUseCase(favoriteGameUseCase: FavoriteGameInteractor): FavoriteGameUseCase
 }
