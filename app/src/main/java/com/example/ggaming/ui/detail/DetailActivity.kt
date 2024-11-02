@@ -27,6 +27,7 @@ class DetailActivity : ComponentActivity() {
 
         gameId?.let {
             viewModel.getGameDetail(it)
+            viewModel.getFavoriteStatus(it)
         } ?: finish()
         initView()
     }
@@ -38,7 +39,7 @@ class DetailActivity : ComponentActivity() {
             GGamingTheme {
                 DetailContent(
                     loading = state.loading,
-                    game = state.game
+                    game = state.game?.copy(isFavorite = state.isFavorite)
                 ) { event ->
                     when(event){
                         is GameEvent.BackEvent -> finish()

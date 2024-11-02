@@ -38,7 +38,9 @@ class HomeActivity : ComponentActivity() {
                 HomeContent(pagingGameItems){ event ->
                     when(event){
                         is GameEvent.OnFavoriteClicked ->{
-                            //TODO: Save to favorite
+                            val game = event.game
+                            if(game.isFavorite) viewmodel.removeFavorite(game.id)
+                            else viewmodel.addFavorite(game)
                         }
                         is GameEvent.OnItemClicked ->{
                             val intent = Intent(this, DetailActivity::class.java).apply {

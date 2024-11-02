@@ -4,6 +4,7 @@ import com.example.core.domain.model.Game
 
 data class GameDetailState(
     val game: Game? = null,
+    val isFavorite: Boolean = false,
     val loading: Boolean = false,
     val error: Boolean = false,
     val errorMessage: String = ""

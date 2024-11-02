@@ -35,8 +35,20 @@ class DetailViewModel @Inject constructor(
         }
     }
 
+    fun getFavoriteStatus(id: String){
+        viewModelScope.launch {
+            favoriteGameUseCase.getFavoriteStatus(id).collect{ result ->
+                handleResult(result){
+                    _state.value = state.value.copy(
+                        isFavorite = (result as Result.Success).data
+                    )
+                }
+            }
+        }
+    }
+
     fun handleFavoriteClicked(game: Game){
-        if(state.value.game?.isFavorite == true){
+        if(state.value.isFavorite){
             removeFavorite(game.id)
         }else addFavorite(game)
     }
@@ -44,11 +56,7 @@ class DetailViewModel @Inject constructor(
     private fun addFavorite(game: Game){
         viewModelScope.launch {
             favoriteGameUseCase.insertFavoriteGame(game).collect{ result ->
-                handleResult(result){
-                    _state.value = state.value.copy(
-                        game = state.value.game?.copy(isFavorite = true)
-                    )
-                }
+                handleResult(result){}
             }
         }
     }
@@ -56,11 +64,7 @@ class DetailViewModel @Inject constructor(
     private fun removeFavorite(gameId: String) {
         viewModelScope.launch {
             favoriteGameUseCase.removeFavoriteGame(gameId).collect{ result ->
-                handleResult(result){
-                    _state.value = state.value.copy(
-                        game = state.value.game?.copy(isFavorite = false)
-                    )
-                }
+                handleResult(result){}
             }
         }
     }

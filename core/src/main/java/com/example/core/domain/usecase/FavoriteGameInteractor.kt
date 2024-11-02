@@ -21,4 +21,8 @@ class FavoriteGameInteractor @Inject constructor(
     override fun removeFavoriteGame(gameId: String): Flow<Result<Unit>> {
         return gameRepository.removeFavoriteGame(gameId)
     }
+
+    override fun getFavoriteStatus(gameId: String): Flow<Result<Boolean>> {
+        return gameRepository.getFavoriteStatus(gameId)
+    }
 }

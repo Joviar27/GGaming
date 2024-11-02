@@ -88,7 +88,7 @@ class LocalDataSource @Inject constructor(
     suspend fun deleteFavoriteAndUpdate(gameId: String){
         gameDatabase.withTransaction {
             deleteFavoriteGame(gameId)
-            updateFavoriteStatus(gameId, true)
+            updateFavoriteStatus(gameId, false)
         }
     }
 }

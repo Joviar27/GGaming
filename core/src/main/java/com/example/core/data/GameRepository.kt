@@ -16,11 +16,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import com.example.core.Result
 import com.example.core.data.local.LocalDataSource
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 
 @Singleton
 class GameRepository @Inject constructor(
@@ -49,18 +46,26 @@ class GameRepository @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getGameDetail(id: String): Flow<Result<Game>> = flow {
         try {
             val gameDetailResponse = remoteDataSource.getGameDetail(id)
             if(gameDetailResponse!=null){
-                val result = localDataSource.isGameFavorite(gameDetailResponse.id.toString()).flatMapLatest {
-                    flowOf(Result.Success(DataMapper.mapDetailResponseToDomain(gameDetailResponse, it)))
-                }
-                emitAll(result)
+                emit(Result.Success(DataMapper.mapDetailResponseToDomain(gameDetailResponse, false)))
             }else throw IllegalArgumentException("Unable to find game detail")
         }catch (e: Exception){
             Log.d("error", "getGameDetail ${this@GameRepository.javaClass.simpleName}: ${e.message}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    override fun getFavoriteStatus(gameId: String): Flow<Result<Boolean>> = flow{
+        try {
+            val isFavorite = localDataSource.isGameFavorite(gameId).map {
+                Result.Success(it)
+            }
+            emitAll(isFavorite)
+        }catch (e: Exception){
+            Log.d("error", "getFavoriteStatus ${this@GameRepository.javaClass.simpleName}: ${e.message}")
             emit(Result.Error(e.message.toString()))
         }
     }
