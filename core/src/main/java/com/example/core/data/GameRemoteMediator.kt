@@ -5,13 +5,10 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import com.example.core.data.local.LocalDataSource
 import com.example.core.data.local.entity.GameEntity
 import com.example.core.data.local.entity.RemoteKeyEntity
-import com.example.core.data.local.room.GameDatabase
 import com.example.core.data.remote.RemoteDataSource
-import com.example.core.data.remote.response.GameItemResponse
 import com.example.core.utils.DataMapper
 import kotlinx.coroutines.flow.firstOrNull
 
@@ -81,7 +78,7 @@ class GameRemoteMediator(
         return state.pages.lastOrNull {
             it.data.isNotEmpty()
         }?.data?.lastOrNull()?.let { data ->
-            localDataSource.getRemoteKey(data.id.toString())
+            localDataSource.getRemoteKey(data.id)
         }
     }
 
@@ -89,14 +86,14 @@ class GameRemoteMediator(
         return state.pages.firstOrNull {
             it.data.isNotEmpty()
         }?.data?.firstOrNull()?.let { data ->
-            localDataSource.getRemoteKey(data.id.toString())
+            localDataSource.getRemoteKey(data.id)
         }
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, GameEntity>): RemoteKeyEntity? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
-                localDataSource.getRemoteKey(id.toString())
+                localDataSource.getRemoteKey(id)
             }
         }
     }

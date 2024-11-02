@@ -11,6 +11,6 @@ interface GameUseCase {
     ): Flow<PagingData<Game>>
 
     suspend fun getGameDetail(
-        name: String
+        id: String
     ): Flow<Result<Game>>
 }

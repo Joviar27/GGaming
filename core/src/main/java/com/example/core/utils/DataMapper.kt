@@ -117,14 +117,14 @@ object DataMapper {
                 Publisher(
                     id = it.id,
                     name = it.name,
-                    image = it.imageBackground ?: ""
+                    image = it.imageBackground
                 )
             } ?: listOf(),
             developers = response.developers?.map {
                 Developer(
                     id = it.id,
                     name = it.name,
-                    image = it.imageBackground ?: ""
+                    image = it.imageBackground
                 )
             } ?: listOf(),
         )
