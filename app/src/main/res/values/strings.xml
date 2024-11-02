@@ -15,6 +15,7 @@
     <!--  Error  -->
     <string name="error_title">Oops! Something Wrong</string>
     <string name="error_message">Error: %s</string>
+    <string name="error_install_module">Failed to install module</string>
 
     <!-- Home   -->
     <string name="search_label">Find games now</string>

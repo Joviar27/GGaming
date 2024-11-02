@@ -42,7 +42,7 @@ class DetailActivity : ComponentActivity() {
                     game = state.game?.copy(isFavorite = state.isFavorite)
                 ) { event ->
                     when(event){
-                        is GameEvent.BackEvent -> finish()
+                        is GameEvent.NavigateBack -> finish()
                         is GameEvent.OnFavoriteClicked ->{
                             viewModel.handleFavoriteClicked(event.game)
                         }

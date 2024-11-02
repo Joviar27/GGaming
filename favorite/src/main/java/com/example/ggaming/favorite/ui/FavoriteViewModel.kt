@@ -1,12 +1,11 @@
-package com.example.ggaming.ui.detail
+package com.example.ggaming.favorite.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.Result
 import com.example.core.domain.model.Game
 import com.example.core.domain.usecase.FavoriteGameUseCase
-import com.example.core.domain.usecase.GameUseCase
-import com.example.ggaming.ui.state.GameDetailState
+import com.example.ggaming.ui.state.GameListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,46 +13,31 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(
-    private val gameUseCase: GameUseCase,
+class FavoriteViewModel @Inject constructor(
     private val favoriteGameUseCase: FavoriteGameUseCase
 ): ViewModel() {
 
-    private val _state = MutableStateFlow(GameDetailState())
-    val state: StateFlow<GameDetailState> get() = _state
+    private val _state = MutableStateFlow(GameListState())
+    val state: StateFlow<GameListState> get() = _state
 
-    fun getGameDetail(id: String){
+    init {
+        getFavoriteGames()
+    }
+
+    private fun getFavoriteGames(){
         viewModelScope.launch {
             showLoading(true)
-            gameUseCase.getGameDetail(id).collect{ result ->
+            favoriteGameUseCase.getFavoriteGameList().collect{ result ->
                 handleResult(result){
                     _state.value = state.value.copy(
-                        game = (result as Result.Success).data
+                        gameList = (result as Result.Success).data
                     )
                 }
             }
         }
     }
 
-    fun getFavoriteStatus(id: String){
-        viewModelScope.launch {
-            favoriteGameUseCase.getFavoriteStatus(id).collect{ result ->
-                handleResult(result){
-                    _state.value = state.value.copy(
-                        isFavorite = (result as Result.Success).data
-                    )
-                }
-            }
-        }
-    }
-
-    fun handleFavoriteClicked(game: Game){
-        if(state.value.isFavorite){
-            removeFavorite(game.id)
-        }else addFavorite(game)
-    }
-
-    private fun addFavorite(game: Game){
+    fun addFavorite(game: Game){
         viewModelScope.launch {
             favoriteGameUseCase.insertFavoriteGame(game).collect{ result ->
                 handleResult(result){}
@@ -61,7 +45,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun removeFavorite(gameId: String) {
+    fun removeFavorite(gameId: String) {
         viewModelScope.launch {
             favoriteGameUseCase.removeFavoriteGame(gameId).collect{ result ->
                 handleResult(result){}

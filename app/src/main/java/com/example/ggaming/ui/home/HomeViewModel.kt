@@ -35,12 +35,9 @@ class HomeViewModel @Inject constructor(
     private val _state = MutableStateFlow(GameListState())
     val state: StateFlow<GameListState> get() = _state
 
-    fun dismissError(){
-        _state.value = state.value.copy(error = false)
-    }
-
     fun addFavorite(game: Game){
         viewModelScope.launch {
+            showLoading(true)
             favoriteGameUseCase.insertFavoriteGame(game).collect{ result ->
                 handleResult(result)
             }
@@ -49,21 +46,39 @@ class HomeViewModel @Inject constructor(
 
     fun removeFavorite(gameId: String) {
         viewModelScope.launch {
+            showLoading(true)
             favoriteGameUseCase.removeFavoriteGame(gameId).collect{ result ->
                 handleResult(result)
             }
         }
     }
 
+    fun showLoading(show: Boolean){
+        _state.value = state.value.copy(
+            loading = show
+        )
+    }
+
+    fun dismissError(){
+        _state.value = state.value.copy(error = false)
+    }
+
+    fun showError(message: String){
+        _state.value = state.value.copy(
+            loading = false,
+            errorMessage = message,
+            error = true
+        )
+    }
+
     private fun <T>handleResult(result: Result<T>){
         when(result){
             is Result.Error ->{
-                _state.value = state.value.copy(
-                    errorMessage = result.message,
-                    error = true
-                )
+                showError(result.message)
             }
-            else -> Unit
+            is Result.Success -> {
+                showLoading(false)
+            }
         }
     }
 }

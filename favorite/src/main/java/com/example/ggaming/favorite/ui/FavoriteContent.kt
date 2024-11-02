@@ -1,4 +1,4 @@
-package com.example.ggaming.ui.detail
+package com.example.ggaming.favorite.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,71 +13,58 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import com.example.core.domain.model.Game
-import com.example.core.domain.model.createDummyGame
-import com.example.ggaming.R
+import com.example.ggaming.favorite.R
 import com.example.ggaming.ui.GameEvent
-import com.example.ggaming.ui.layout.GameDetail
+import com.example.ggaming.ui.layout.GameList
 import com.example.ggaming.ui.layout.LoadingBar
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.onPrimaryLight
 import com.example.ggaming.ui.theme.primaryLight
+import com.example.ggaming.R as AppR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailContent(
-    game: Game?,
+fun FavoriteContent(
+    gameItems: List<Game>,
     loading: Boolean,
     event: (GameEvent) -> Unit
-){
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                navigationIcon = {
-                    Icon(
-                        modifier = Modifier.clickable { 
-                            event.invoke(GameEvent.NavigateBack)
-                        },
-                        painter = painterResource(R.drawable.baseline_arrow_back_24),
-                        tint = onPrimaryLight,
-                        contentDescription = null
-                    )
-                },
                 title = {
                     Text(
-                        modifier = Modifier.padding(start = 8.dp),
-                        style = GGamingTypography.headlineSmall,
-                        text = game?.name ?: ""
+                        style = GGamingTypography.headlineMedium,
+                        text = stringResource(R.string.favorite_toolbar_title)
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = primaryLight,
                     titleContentColor = onPrimaryLight
-                )
+                ),
+                navigationIcon = {
+                    Icon(
+                        modifier = Modifier.clickable {
+                            event.invoke(GameEvent.NavigateBack)
+                        },
+                        painter = painterResource(AppR.drawable.baseline_arrow_back_24),
+                        tint = onPrimaryLight,
+                        contentDescription = null
+                    )
+                }
             )
         }
-    ) { innerPadding ->
-        Box(Modifier.fillMaxSize()){
-            game?.let {
-                GameDetail(
-                    modifier = Modifier.padding(innerPadding),
-                    game = game
-                ) {
-                    event.invoke(it)
-                }
+    ){ innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            GameList(gameItems){
+                event.invoke(it)
             }
             if(loading){
                 LoadingBar()
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DetailContentPreview(){
-    DetailContent(createDummyGame(),true) { }
 }
