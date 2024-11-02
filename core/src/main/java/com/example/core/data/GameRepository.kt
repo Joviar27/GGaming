@@ -16,7 +16,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import com.example.core.Result
 import com.example.core.data.local.LocalDataSource
-import com.example.core.data.local.room.GameDatabase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flatMapLatest
@@ -25,7 +24,6 @@ import kotlinx.coroutines.flow.flowOf
 
 @Singleton
 class GameRepository @Inject constructor(
-    private val gameDatabase: GameDatabase,
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : IGameRepository{
@@ -39,7 +37,6 @@ class GameRepository @Inject constructor(
             config = pagingConfig,
             remoteMediator = GameRemoteMediator(
                 query = query,
-                gameDatabase = gameDatabase,
                 localDataSource = localDataSource,
                 remoteDataSource = remoteDataSource
             )
@@ -57,7 +54,7 @@ class GameRepository @Inject constructor(
         try {
             val gameDetailResponse = remoteDataSource.getGameDetail(id)
             if(gameDetailResponse!=null){
-                val result = localDataSource.isGameFavorite(gameDetailResponse.id).flatMapLatest {
+                val result = localDataSource.isGameFavorite(gameDetailResponse.id.toString()).flatMapLatest {
                     flowOf(Result.Success(DataMapper.mapDetailResponseToDomain(gameDetailResponse, it)))
                 }
                 emitAll(result)
@@ -84,7 +81,7 @@ class GameRepository @Inject constructor(
 
     override fun insertFavoriteGame(game: Game) : Flow<Result<Unit>> = flow{
         try {
-            val result = localDataSource.insertFavoriteGame(
+            val result = localDataSource.insertFavoriteAndUpdate(
                 DataMapper.mapFavoriteDomainToEntity(game)
             )
             emit(Result.Success(result))
@@ -96,7 +93,7 @@ class GameRepository @Inject constructor(
 
     override fun removeFavoriteGame(gameId: String) : Flow<Result<Unit>> = flow {
         try {
-            val result = localDataSource.deleteFavoriteGame(gameId)
+            val result = localDataSource.deleteFavoriteAndUpdate(gameId)
             emit(Result.Success(result))
         }catch (e: Exception){
             Log.d("error", "removeFavoriteGame ${this.javaClass.simpleName}: ${e.message}")

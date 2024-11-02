@@ -2,23 +2,19 @@ package com.example.ggaming.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.core.Result
-import com.example.core.domain.model.Game
-import com.example.core.domain.usecase.GetGameListUseCase
+import com.example.core.domain.usecase.GameUseCase
 import com.example.ggaming.ui.GameListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getGameListUseCase: GetGameListUseCase
+    private val gameUseCase: GameUseCase
 ): ViewModel() {
     private val _query = MutableStateFlow("")
 
@@ -28,7 +24,7 @@ class HomeViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val gamesList = _query.flatMapLatest { query ->
-        getGameListUseCase.getGameList(query).cachedIn(viewModelScope)
+        gameUseCase.getGameList(query).cachedIn(viewModelScope)
     }
 
     private val _state = MutableStateFlow(GameListState())

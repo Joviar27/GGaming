@@ -2,10 +2,8 @@ package com.example.ggaming.di
 
 import com.example.core.domain.usecase.FavoriteGameInteractor
 import com.example.core.domain.usecase.FavoriteGameUseCase
-import com.example.core.domain.usecase.GetGameDetailInteractor
-import com.example.core.domain.usecase.GetGameDetailUseCase
-import com.example.core.domain.usecase.GetGameListInteractor
-import com.example.core.domain.usecase.GetGameListUseCase
+import com.example.core.domain.usecase.GameInteractor
+import com.example.core.domain.usecase.GameUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,11 +16,7 @@ abstract class AppModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun provideGetGameListUseCase(getGameListUseCase: GetGameListInteractor): GetGameListUseCase
-
-    @Binds
-    @ViewModelScoped
-    abstract fun provideGetGameDetailUseCase(getGameDetailUseCase: GetGameDetailInteractor): GetGameDetailUseCase
+    abstract fun provideGameUseCase(gameUseCase: GameInteractor): GameUseCase
 
     @Binds
     @ViewModelScoped

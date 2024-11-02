@@ -20,5 +20,5 @@ interface FavoriteGameDao {
     suspend fun deleteFavoriteGame(id: String)
 
     @Query("SELECT EXISTS(SELECT * FROM favorite_game WHERE id = :id)")
-    fun isGameFavorite(id: Int): Flow<Boolean>
+    fun isGameFavorite(id: String): Flow<Boolean>
 }

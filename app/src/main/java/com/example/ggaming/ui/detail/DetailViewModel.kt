@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.core.Result
 import com.example.core.domain.model.Game
 import com.example.core.domain.usecase.FavoriteGameUseCase
-import com.example.core.domain.usecase.GetGameDetailUseCase
+import com.example.core.domain.usecase.GameUseCase
 import com.example.ggaming.ui.GameDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val getGameDetailUseCase: GetGameDetailUseCase,
+    private val gameUseCase: GameUseCase,
     private val favoriteGameUseCase: FavoriteGameUseCase
 ): ViewModel() {
 
@@ -25,7 +25,7 @@ class DetailViewModel @Inject constructor(
     fun getGameDetail(id: String){
         viewModelScope.launch {
             showLoading(true)
-            getGameDetailUseCase.getGameDetail(id).collect{ result ->
+            gameUseCase.getGameDetail(id).collect{ result ->
                 handleResult(result){
                     _state.value = state.value.copy(
                         game = (result as Result.Success).data

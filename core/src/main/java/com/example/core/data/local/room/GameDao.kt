@@ -18,4 +18,7 @@ interface GameDao {
 
     @Query("DELETE FROM game")
     suspend fun deleteAllGames()
+
+    @Query("UPDATE game SET isFavorite = :isFavorite WHERE id = :id")
+    suspend fun updateFavoriteStatus(id: String, isFavorite: Boolean)
 }

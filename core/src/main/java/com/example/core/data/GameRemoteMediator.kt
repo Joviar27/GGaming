@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.firstOrNull
 @OptIn(ExperimentalPagingApi::class)
 class GameRemoteMediator(
     private val query: String?,
-    private val gameDatabase: GameDatabase,
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): RemoteMediator<Int, GameEntity>() {
@@ -52,28 +51,20 @@ class GameRemoteMediator(
                 page,
                 state.config.pageSize
             )?.map {
-                val isFavorite = localDataSource.isGameFavorite(it.id).firstOrNull()
+                val isFavorite = localDataSource.isGameFavorite(it.id.toString()).firstOrNull()
                 DataMapper.mapResponseToEntity(it, isFavorite ?: false)
             } ?: emptyList()
 
             val endOfPaginationReached = gameEntities.isEmpty()
 
-            gameDatabase.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    localDataSource.deleteAllGames()
-                    localDataSource.deleteRemoteKeys()
-                }
-
-                val prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1
-                val nextKey = if (endOfPaginationReached) null else page + 1
-
-                val remoteKeys = gameEntities.map {
-                    RemoteKeyEntity(id = it.id, prevKey = prevKey, nextKey = nextKey)
-                }
-
-                localDataSource.insertGames(gameEntities)
-                localDataSource.insertRemoteKeys(remoteKeys)
+            val prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1
+            val nextKey = if (endOfPaginationReached) null else page + 1
+            val remoteKeys = gameEntities.map {
+                RemoteKeyEntity(id = it.id, prevKey = prevKey, nextKey = nextKey)
             }
+
+            localDataSource.updatePagingGames(loadType, gameEntities, remoteKeys)
+
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         }catch (e: Exception){
             Log.d("error", "load ${this.javaClass.simpleName}: ${e.message}")

@@ -19,19 +19,38 @@ class LocalDataSource @Inject constructor(
     private val gameDao: GameDao,
     private val remoteKeyDao: RemoteKeyDao
 ) {
+    suspend fun updatePagingGames(
+        loadType: LoadType,
+        gameEntities: List<GameEntity>,
+        remoteKeys: List<RemoteKeyEntity>
+    ){
+        return gameDatabase.withTransaction {
+            if (loadType == LoadType.REFRESH) {
+                deleteAllGames()
+                deleteRemoteKeys()
+            }
+            insertGames(gameEntities)
+            insertRemoteKeys(remoteKeys)
+        }
+    }
+
     fun getGames(): PagingSource<Int, GameEntity>{
         return gameDao.getGames()
     }
 
-    suspend fun insertGames(gameEntities: List<GameEntity>){
+    private suspend fun insertGames(gameEntities: List<GameEntity>){
         return gameDao.insertGames(gameEntities)
     }
 
-    suspend fun deleteAllGames(){
+    private suspend fun deleteAllGames(){
         return gameDao.deleteAllGames()
     }
 
-    suspend fun insertRemoteKeys(keys: List<RemoteKeyEntity>){
+    private suspend fun updateFavoriteStatus(gameId: String, isFavorite: Boolean){
+        return gameDao.updateFavoriteStatus(gameId, isFavorite)
+    }
+
+    private suspend fun insertRemoteKeys(keys: List<RemoteKeyEntity>){
         return remoteKeyDao.insertKeys(keys)
     }
 
@@ -39,7 +58,7 @@ class LocalDataSource @Inject constructor(
         return remoteKeyDao.getById(id)
     }
 
-    suspend fun deleteRemoteKeys(){
+    private suspend fun deleteRemoteKeys(){
         return remoteKeyDao.deleteRemoteKeys()
     }
 
@@ -47,15 +66,29 @@ class LocalDataSource @Inject constructor(
         return favoriteGameDao.getFavoriteGames()
     }
 
-    suspend fun insertFavoriteGame(favoriteGameEntity: FavoriteGameEntity){
+    private suspend fun insertFavoriteGame(favoriteGameEntity: FavoriteGameEntity){
         return favoriteGameDao.insertFavoriteGame(favoriteGameEntity)
     }
 
-    suspend fun deleteFavoriteGame(gameId: String){
+    private suspend fun deleteFavoriteGame(gameId: String){
         return favoriteGameDao.deleteFavoriteGame(gameId)
     }
 
-    fun isGameFavorite(gameId: Int): Flow<Boolean>{
+    fun isGameFavorite(gameId: String): Flow<Boolean>{
         return favoriteGameDao.isGameFavorite(gameId)
+    }
+
+    suspend fun insertFavoriteAndUpdate(favoriteGameEntity: FavoriteGameEntity){
+        gameDatabase.withTransaction {
+            insertFavoriteGame(favoriteGameEntity)
+            updateFavoriteStatus(favoriteGameEntity.id, true)
+        }
+    }
+
+    suspend fun deleteFavoriteAndUpdate(gameId: String){
+        gameDatabase.withTransaction {
+            deleteFavoriteGame(gameId)
+            updateFavoriteStatus(gameId, true)
+        }
     }
 }
