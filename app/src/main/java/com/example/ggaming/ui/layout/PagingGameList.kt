@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,9 +30,14 @@ fun PagingGameList(
     modifier: Modifier = Modifier,
     gamePagingItems: LazyPagingItems<Game>,
     onLoadMore: Boolean,
+    onRefresh: Boolean,
     event: (GameEvent) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
+
+    LaunchedEffect(onRefresh){
+        if(onRefresh) lazyListState.scrollToItem(0)
+    }
 
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -76,6 +82,7 @@ fun PagingGameListPreview(){
     val dummy = dummyPaging.collectAsLazyPagingItems()
     PagingGameList(
         gamePagingItems = dummy,
+        onRefresh = true,
         onLoadMore = true
     ){ }
 }

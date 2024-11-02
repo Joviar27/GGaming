@@ -101,7 +101,8 @@ fun HomeContent(
                 )
                 PagingGameList(
                     gamePagingItems = pagingGameItems,
-                    onLoadMore = pagingGameItems.loadState.append is LoadState.Loading
+                    onLoadMore = pagingGameItems.loadState.append is LoadState.Loading,
+                    onRefresh = pagingGameItems.loadState.refresh is LoadState.Loading
                 ) {
                     event.invoke(it)
                 }
