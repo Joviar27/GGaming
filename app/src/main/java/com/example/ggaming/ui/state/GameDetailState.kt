@@ -1,4 +1,4 @@
-package com.example.ggaming.ui
+package com.example.ggaming.ui.state
 
 import com.example.core.domain.model.Game
 

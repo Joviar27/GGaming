@@ -6,7 +6,7 @@ import com.example.core.Result
 import com.example.core.domain.model.Game
 import com.example.core.domain.usecase.FavoriteGameUseCase
 import com.example.core.domain.usecase.GameUseCase
-import com.example.ggaming.ui.GameDetailState
+import com.example.ggaming.ui.state.GameDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
