@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,8 +37,6 @@ import com.example.ggaming.ui.layout.PagingGameList
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.onPrimaryLight
 import com.example.ggaming.ui.theme.primaryLight
-import com.example.ggaming.ui.theme.surfaceContainerHighLight
-import com.example.ggaming.ui.theme.tertiaryLight
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
