@@ -84,16 +84,13 @@ fun MetacriticText(rating: Int){
             color = onSurfaceLight
         )
         Spacer(Modifier.width(4.dp))
-        Box(Modifier
-            .clip(RoundedCornerShape(4.dp))
-            .background(errorContainerLight)
-        ){
-            Text(
-                modifier = Modifier.padding(4.dp),
-                text = rating.toString(),
-                style = GGamingTypography.titleMedium
-            )
-        }
+        Text(
+            modifier = Modifier.clip(RoundedCornerShape(4.dp))
+                .background(errorContainerLight)
+                .padding(4.dp),
+            text = rating.toString(),
+            style = GGamingTypography.titleMedium
+        )
     }
 }
 
@@ -107,4 +104,10 @@ fun RatingTextPreview(){
 @Composable
 fun RatingCountTextPreview(){
     RatingCountText(ratingCount = 9000)
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF1F1A1F)
+@Composable
+fun MetacriticTextPreview(){
+    MetacriticText( 92)
 }
