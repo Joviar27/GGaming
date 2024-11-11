@@ -40,6 +40,7 @@ fun PagingGameList(
     }
 
     LazyColumn(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         state = lazyListState
     ) {
