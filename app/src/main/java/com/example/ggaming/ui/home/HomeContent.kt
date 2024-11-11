@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,11 +34,12 @@ import com.example.core.domain.model.Game
 import com.example.core.domain.model.createDummyGameList
 import com.example.ggaming.R
 import com.example.ggaming.ui.GameEvent
-import com.example.ggaming.ui.layout.LoadingBar
 import com.example.ggaming.ui.layout.PagingGameList
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.onPrimaryLight
 import com.example.ggaming.ui.theme.primaryLight
+import com.example.ggaming.ui.theme.surfaceContainerHighLight
+import com.example.ggaming.ui.theme.tertiaryLight
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,35 +73,46 @@ fun HomeContent(
                         Icon(
                             painterResource(R.drawable.baseline_bookmark_36),
                             null,
-                            tint = onPrimaryLight)
+                            tint = onPrimaryLight
+                        )
                     }
                 }
             )
         }
     ) { innerPadding ->
-        Box(Modifier.padding(innerPadding)){
-            Column(
-                Modifier.fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                TextField(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    value = search,
-                    maxLines = 1,
-                    textStyle = GGamingTypography.bodyMedium,
-                    label = {
-                        Text(
-                            style = GGamingTypography.labelLarge,
-                            text = stringResource(R.string.search_label)
-                        )
-                    },
-                    onValueChange = {
-                        search = it
-                        event.invoke(GameEvent.OnSearchValueChanged(it))
-                    }
-                )
+        Column(
+            Modifier.fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
+            TextField(
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                value = search,
+                maxLines = 1,
+                textStyle = GGamingTypography.bodyMedium,
+                label = {
+                    Text(
+                        style = GGamingTypography.labelLarge,
+                        text = stringResource(R.string.search_label)
+                    )
+                },
+                onValueChange = {
+                    search = it
+                    event.invoke(GameEvent.OnSearchValueChanged(it))
+                }
+            )
+            if(pagingGameItems.loadState.refresh is LoadState.Loading){
+                Box(Modifier.fillMaxSize()){
+                    CircularProgressIndicator(
+                        modifier = Modifier.width(64.dp)
+                            .align(Alignment.Center),
+                        color = tertiaryLight,
+                        trackColor = surfaceContainerHighLight
+                    )
+                }
+            }else{
                 PagingGameList(
                     gamePagingItems = pagingGameItems,
                     onLoadMore = pagingGameItems.loadState.append is LoadState.Loading,
@@ -106,9 +120,6 @@ fun HomeContent(
                 ) {
                     event.invoke(it)
                 }
-            }
-            if(pagingGameItems.loadState.refresh is LoadState.Loading){
-                LoadingBar()
             }
         }
     }
