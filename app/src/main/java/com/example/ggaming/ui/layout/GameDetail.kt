@@ -133,9 +133,9 @@ fun GameDetail(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                RatingText(game.rating)
+                RatingText(rating = game.rating)
                 Spacer(Modifier.width(12.dp))
-                RatingCountText(game.ratingCount)
+                RatingCountText(ratingCount = game.ratingCount)
             }
             MetacriticText(game.metacritic)
         }

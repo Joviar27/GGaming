@@ -2,6 +2,7 @@ package com.example.ggaming.ui.layout
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ggaming.R
 import com.example.ggaming.ui.theme.GGamingTypography
@@ -25,9 +27,15 @@ import com.example.ggaming.ui.theme.onSurfaceLight
 import com.example.ggaming.ui.theme.primaryLight
 
 @Composable
-fun RatingText(rating: Double, color: Color = onSurfaceLight){
+fun RatingText(
+    modifier: Modifier = Modifier,
+    rating: Double,
+    color: Color = onSurfaceLight
+){
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
     ) {
         Image(
             painter = painterResource(R.drawable.baseline_star_24),
@@ -43,9 +51,15 @@ fun RatingText(rating: Double, color: Color = onSurfaceLight){
 }
 
 @Composable
-fun RatingCountText(ratingCount: Int, color: Color = onSurfaceLight){
+fun RatingCountText(
+    modifier: Modifier = Modifier,
+    ratingCount: Int,
+    color: Color = onSurfaceLight
+){
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
     ) {
         Icon(
             painter = painterResource(R.drawable.baseline_person_24),
@@ -81,4 +95,16 @@ fun MetacriticText(rating: Int){
             )
         }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF1F1A1F)
+@Composable
+fun RatingTextPreview(){
+    RatingText(rating = 4.99)
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF1F1A1F)
+@Composable
+fun RatingCountTextPreview(){
+    RatingCountText(ratingCount = 9000)
 }

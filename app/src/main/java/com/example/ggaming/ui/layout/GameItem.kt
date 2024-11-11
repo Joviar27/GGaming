@@ -4,9 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -57,70 +55,76 @@ fun GameItem(
             containerColor = surfaceContainerLight
         )
     ){
-        Column {
-            Box(Modifier.wrapContentSize()){
-                GlideImage(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp),
-                    model = game.background,
+        Box(Modifier.wrapContentSize()){
+            GlideImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                model = game.background,
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+            Box(Modifier
+                .padding(16.dp)
+                .align(Alignment.TopEnd)
+                .clip(CircleShape)
+                .background(tertiaryContainerLight)
+                .clickable {
+                    event.invoke(GameEvent.OnFavoriteClicked(game))
+                }
+            ){
+                Icon(
+                    modifier = Modifier.padding(8.dp),
+                    painter = painterResource(
+                        if(game.isFavorite) R.drawable.baseline_bookmark_24
+                        else R.drawable.baseline_bookmark_border_24
+                    ),
                     contentDescription = null,
-                    contentScale = ContentScale.Crop
+                    tint = primaryLight
                 )
-                Box(Modifier
-                    .padding(16.dp)
-                    .align(Alignment.TopEnd)
-                    .clip(CircleShape)
-                    .background(tertiaryContainerLight)
-                    .clickable {
-                        event.invoke(GameEvent.OnFavoriteClicked(game))
-                    }
-                ){
-                    Icon(
-                        modifier = Modifier.padding(8.dp),
-                        painter = painterResource(
-                            if(game.isFavorite) R.drawable.baseline_bookmark_24
-                            else R.drawable.baseline_bookmark_border_24
-                        ),
-                        contentDescription = null,
-                        tint = primaryLight
-                    )
-                }
             }
-            Row(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(Modifier.weight(4f)){
-                    Text(
-                        style = GGamingTypography.headlineSmall,
-                        color = onSurfaceLight,
-                        text = game.name
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(top = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                modifier = Modifier.weight(4f),
+                style = GGamingTypography.headlineSmall,
+                color = onSurfaceLight,
+                text = game.name
+            )
+            RatingText(
+                modifier = Modifier.weight(1f),
+                rating = game.rating
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Text(
+                modifier = Modifier.weight(4f),
+                style = GGamingTypography.labelMedium,
+                color = onSurfaceLight,
+                text = stringResource(
+                    R.string.release_date,
+                    DateUtils.dateToString(
+                        date = game.releaseDate,
+                        format = "dd MMMM yyyy"
                     )
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        style = GGamingTypography.labelMedium,
-                        color = onSurfaceLight,
-                        text = stringResource(
-                            R.string.release_date,
-                            DateUtils.dateToString(
-                                date = game.releaseDate,
-                                format = "dd MMMM yyyy"
-                            )
-                        )
-                    )
-                }
-                Column(
-                    Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    RatingText(game.rating)
-                    Spacer(Modifier.height(4.dp))
-                    RatingCountText(game.ratingCount)
-                }
-            }
+                )
+            )
+            RatingCountText(
+                modifier = Modifier.weight(1f),
+                ratingCount = game.ratingCount
+            )
         }
     }
 }
@@ -133,16 +137,4 @@ fun GameItemPreview(){
         game = createDummyGame(),
         event = {}
     )
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFF1F1A1F)
-@Composable
-fun RatingTextPreview(){
-    RatingText(4.99)
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFF1F1A1F)
-@Composable
-fun RatingCountTextPreview(){
-    RatingCountText(9000)
 }
