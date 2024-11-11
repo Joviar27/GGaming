@@ -3,7 +3,7 @@
     <string name="metacritic">Metacritic</string>
 
     <!-- Game Item   -->
-    <string name="release_date">Released: %s</string>
+    <string name="release_date">Released:\n %s</string>
 
     <!-- Game Detail -->
     <string name="description">Description</string>

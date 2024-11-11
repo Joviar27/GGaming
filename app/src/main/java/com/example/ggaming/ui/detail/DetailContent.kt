@@ -60,7 +60,11 @@ fun DetailContent(
             )
         }
     ) { innerPadding ->
-        Box(Modifier.fillMaxSize()){
+        if(loading){
+            Box(Modifier.fillMaxSize()){
+                LoadingBar()
+            }
+        }else{
             game?.let {
                 GameDetail(
                     modifier = Modifier.padding(innerPadding),
@@ -69,9 +73,6 @@ fun DetailContent(
                     event.invoke(it)
                 }
             }
-            if(loading){
-                LoadingBar()
-            }
         }
     }
 }
@@ -79,5 +80,5 @@ fun DetailContent(
 @Preview(showBackground = true)
 @Composable
 fun DetailContentPreview(){
-    DetailContent(createDummyGame(),true) { }
+    DetailContent(createDummyGame(),false) { }
 }

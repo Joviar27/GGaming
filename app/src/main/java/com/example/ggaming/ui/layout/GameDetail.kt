@@ -129,14 +129,12 @@ fun GameDetail(
         Row(Modifier.fillMaxWidth()
             .padding(horizontal = 16.dp)
             .padding(top = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                RatingText(rating = game.rating)
-                Spacer(Modifier.width(12.dp))
-                RatingCountText(ratingCount = game.ratingCount)
-            }
+            RatingText(rating = game.rating)
+            Spacer(Modifier.width(12.dp))
+            RatingCountText(ratingCount = game.ratingCount)
+            Spacer(Modifier.weight(1f))
             MetacriticText(game.metacritic)
         }
 
@@ -217,15 +215,13 @@ fun GameDetail(
 
 @Composable
 fun GenreChip(genreName: String){
-    Box(Modifier.clip(RoundedCornerShape(8.dp))
-        .background(secondaryContainerLight)
-    ){
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = genreName,
-            color = onSecondaryContainerLight
-        )
-    }
+    Text(
+        modifier = Modifier.clip(RoundedCornerShape(8.dp))
+            .background(secondaryContainerLight)
+            .padding(8.dp),
+        text = genreName,
+        color = onSecondaryContainerLight
+    )
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
