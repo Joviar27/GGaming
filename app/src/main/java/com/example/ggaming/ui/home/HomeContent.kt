@@ -34,6 +34,7 @@ import com.example.core.domain.model.Game
 import com.example.core.domain.model.createDummyGameList
 import com.example.ggaming.R
 import com.example.ggaming.ui.GameEvent
+import com.example.ggaming.ui.layout.LoadingBar
 import com.example.ggaming.ui.layout.PagingGameList
 import com.example.ggaming.ui.theme.GGamingTypography
 import com.example.ggaming.ui.theme.onPrimaryLight
@@ -105,12 +106,7 @@ fun HomeContent(
             )
             if(pagingGameItems.loadState.refresh is LoadState.Loading){
                 Box(Modifier.fillMaxSize()){
-                    CircularProgressIndicator(
-                        modifier = Modifier.width(64.dp)
-                            .align(Alignment.Center),
-                        color = tertiaryLight,
-                        trackColor = surfaceContainerHighLight
-                    )
+                    LoadingBar()
                 }
             }else{
                 PagingGameList(
