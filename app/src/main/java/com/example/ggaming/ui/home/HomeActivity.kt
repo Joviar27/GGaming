@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,6 +41,12 @@ class HomeActivity : ComponentActivity() {
             val state by viewmodel.state.collectAsStateWithLifecycle()
             val pagingGameItems = viewmodel.gamesList.collectAsLazyPagingItems()
 
+            LaunchedEffect(pagingGameItems.loadState) {
+                if(pagingGameItems.loadState.mediator?.hasError == true){
+                    viewmodel.showError("")
+                }
+            }
+
             GGamingTheme {
                 HomeContent(pagingGameItems){ event ->
                     when(event){
@@ -64,7 +71,7 @@ class HomeActivity : ComponentActivity() {
                 }
                 ErrorBottomSheet(
                     message = state.errorMessage,
-                    show = state.error || pagingGameItems.loadState.mediator?.hasError == true
+                    show = state.error
                 ) {
                     viewmodel.dismissError()
                 }
