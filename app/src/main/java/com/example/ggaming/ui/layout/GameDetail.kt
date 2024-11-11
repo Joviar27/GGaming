@@ -117,7 +117,7 @@ fun GameDetail(
                 modifier = Modifier.align(Alignment.CenterVertically)
                     .weight(2f),
                 text = stringResource(
-                    R.string.release_date,
+                    R.string.detail_release_date,
                     DateUtils.dateToString(
                         game.releaseDate,
                         "dd MMM yyyy"
