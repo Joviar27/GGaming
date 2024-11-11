@@ -58,12 +58,16 @@ fun FavoriteContent(
             )
         }
     ){ innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            GameList(gameItems){
-                event.invoke(it)
-            }
-            if(loading){
+        if(loading){
+            Box(Modifier.fillMaxSize()){
                 LoadingBar()
+            }
+        }else{
+            GameList(
+                Modifier.padding(innerPadding),
+                gameList = gameItems
+            ){
+                event.invoke(it)
             }
         }
     }

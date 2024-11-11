@@ -14,11 +14,12 @@ import com.example.ggaming.ui.GameEvent
 
 @Composable
 fun GameList(
+    modifier: Modifier = Modifier,
     gameList: List<Game>,
     event: (GameEvent) -> Unit
 ) {
     LazyColumn(
-        Modifier.padding(8.dp),
+        modifier.padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(gameList){
