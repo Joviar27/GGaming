@@ -82,4 +82,7 @@ dependencies {
     //Dynamic-feature
     implementation(libs.feature.delivery)
     implementation(libs.feature.delivery.ktx)
+
+    //LeakCanary
+    debugApi(libs.leakcanary)
 }
