@@ -9,7 +9,6 @@ object TextUtils {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
         } else {
-            @Suppress("Deprecation")
             Html.fromHtml(html)
         }
     }
