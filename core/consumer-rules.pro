@@ -86,3 +86,22 @@ public *;
  # kept. Suspend functions are wrapped in continuations where the type argument
  # is used.
  -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+
+# Hilt-specific rules
+-keep class dagger.hilt.internal.** { *; }
+-keep class **_HiltModules.** { *; }
+-keep class **_HiltComponents { *; }
+-keep class * extends dagger.hilt.EntryPoint
+-keep @dagger.hilt.EntryPoint class *
+-keep @dagger.hilt.InstallIn class *
+
+# Rules to keep generated code for Dagger/Hilt
+-keepclasseswithmembers class * {
+    @dagger.hilt.InstallIn <fields>;
+}
+-keepclasseswithmembers class * {
+    @dagger.hilt.EntryPoint <fields>;
+}
+
+# Rules to preserve Hilt's internal processing components
+-dontwarn dagger.hilt.**
