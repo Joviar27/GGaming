@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -51,15 +52,30 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideCertificatePinner(): CertificatePinner {
+        val hostName = BuildConfig.HOST_NAME
+        return CertificatePinner.Builder()
+            .add(hostName, "sha256/Ti5AhU6OcJWgTQfedHg7+xEaS6XE1iOgqkeZX161P7U=")
+            .add(hostName, "sha256/yDu9og255NN5GEf+Bwa9rTrqFQ0EydZ0r1FCh9TdAW4=")
+            .add(hostName, "sha256/hxqRlPTu1bMS/0DITB1SSu0vd4u/8l8TjPgfaAp63Gc=")
+            .add(hostName, "sha256/b0kr6GUvjgiM8He9NBD+PpV3XaC8gCh9D+sTVN/HAbU=")
+            .add(hostName, "sha256/kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4=")
+            .add(hostName, "sha256/mEflZT5enoR1FuXLgYYGqnVEoZvmf9c2bVBpiOjYQ0c=")
+            .build()
+    }
+
+    @Provides
     fun provideOkHttpClient(
         @Named(AUTH_INTERCEPTOR) authInterceptor: Interceptor,
-        @Named(LOGGING_INTERCEPTOR) loggingInterceptor: Interceptor
+        @Named(LOGGING_INTERCEPTOR) loggingInterceptor: Interceptor,
+        certificatePinner: CertificatePinner
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
 
