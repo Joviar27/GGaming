@@ -19,7 +19,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
 
-        val baseUrl = System.getenv("BASE_URL") ?: getProperty("local.properties", "BASE_URL")
+        val baseUrl = System.getenv("BASE_URL")?.replace("\\", "\\\\")?.replace("\"", "\\\"")?.trim()
+            ?: getProperty("local.properties", "BASE_URL")
         buildConfigField("String", "BASE_URL", "\"${baseUrl}\"")
 
         val apiKey = System.getenv("API_KEY") ?: getProperty("local.properties", "API_KEY")
