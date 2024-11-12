@@ -84,6 +84,10 @@ dependencies {
     //Dagger-hilt
     api(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    //DbEncryption
+    implementation(libs.sqlcipher)
+    implementation(libs.sqlite.ktx)
 }
 
 fun getProperty(fileName: String, propName: String): String {
