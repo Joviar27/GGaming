@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    id(libs.plugins.kotlin.parcelize.get().pluginId)
 }
 
 android {
