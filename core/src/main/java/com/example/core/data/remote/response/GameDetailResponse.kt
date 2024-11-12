@@ -1,7 +1,9 @@
 package com.example.core.data.remote.response
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class GameDetailResponse(
 
 	@field:SerializedName("added")
@@ -164,6 +166,7 @@ data class GameDetailResponse(
 	val clip: Any
 )
 
+@Keep
 data class PublishersItem(
 
 	@field:SerializedName("games_count")
@@ -182,6 +185,7 @@ data class PublishersItem(
 	val slug: String
 )
 
+@Keep
 data class DevelopersItem(
 
 	@field:SerializedName("games_count")
@@ -200,6 +204,7 @@ data class DevelopersItem(
 	val slug: String
 )
 
+@Keep
 data class MetacriticPlatformsItem(
 
 	@field:SerializedName("metascore")
