@@ -1,7 +1,9 @@
 package com.example.core.data.remote.response
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class GameListResponse(
 
 	@field:SerializedName("next")
@@ -17,6 +19,7 @@ data class GameListResponse(
 	val results: List<GameItemResponse>?,
 )
 
+@Keep
 data class Store(
 
 	@field:SerializedName("games_count")
@@ -38,6 +41,7 @@ data class Store(
 	val slug: String
 )
 
+@Keep
 data class ShortScreenshotsItem(
 
 	@field:SerializedName("image")
@@ -47,6 +51,7 @@ data class ShortScreenshotsItem(
 	val id: Int
 )
 
+@Keep
 data class AddedByStatus(
 
 	@field:SerializedName("owned")
@@ -68,12 +73,14 @@ data class AddedByStatus(
 	val toplay: Int
 )
 
+@Keep
 data class ParentPlatformsItem(
 
 	@field:SerializedName("platform")
 	val platform: Platform
 )
 
+@Keep
 data class TagsItem(
 
 	@field:SerializedName("games_count")
@@ -95,6 +102,7 @@ data class TagsItem(
 	val slug: String
 )
 
+@Keep
 data class RatingsItem(
 
 	@field:SerializedName("count")
@@ -110,6 +118,7 @@ data class RatingsItem(
 	val percent: Any
 )
 
+@Keep
 data class GenresItem(
 
 	@field:SerializedName("games_count")
@@ -128,6 +137,7 @@ data class GenresItem(
 	val slug: String
 )
 
+@Keep
 data class GameItemResponse(
 
 	@field:SerializedName("added")
@@ -218,6 +228,7 @@ data class GameItemResponse(
 	val reviewsCount: Int
 )
 
+@Keep
 data class RequirementsRu(
 
 	@field:SerializedName("minimum")
@@ -227,6 +238,7 @@ data class RequirementsRu(
 	val recommended: String
 )
 
+@Keep
 data class PlatformsItem(
 
 	@field:SerializedName("requirements_ru")
@@ -242,6 +254,7 @@ data class PlatformsItem(
 	val platform: Platform
 )
 
+@Keep
 data class RequirementsEn(
 
 	@field:SerializedName("minimum")
@@ -251,6 +264,7 @@ data class RequirementsEn(
 	val recommended: String
 )
 
+@Keep
 data class Platform(
 
 	@field:SerializedName("image")
@@ -278,6 +292,7 @@ data class Platform(
 	val slug: String
 )
 
+@Keep
 data class StoresItem(
 
 	@field:SerializedName("id")
@@ -287,6 +302,7 @@ data class StoresItem(
 	val store: Store
 )
 
+@Keep
 data class EsrbRating(
 
 	@field:SerializedName("name")

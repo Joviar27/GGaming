@@ -25,6 +25,9 @@ android {
 
         val apiKey = System.getenv("API_KEY") ?: getProperty("local.properties", "API_KEY")
         buildConfigField("String", "API_KEY", "\"${apiKey}\"")
+
+        val hostName = System.getenv("HOST_NAME") ?: getProperty("local.properties", "HOST_NAME")
+        buildConfigField("String", "HOST_NAME", "\"${hostName}\"")
     }
 
     buildTypes {
@@ -84,6 +87,10 @@ dependencies {
     //Dagger-hilt
     api(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    //DbEncryption
+    implementation(libs.sqlcipher)
+    implementation(libs.sqlite.ktx)
 }
 
 fun getProperty(fileName: String, propName: String): String {

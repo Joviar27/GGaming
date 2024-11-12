@@ -24,6 +24,13 @@ android {
 
     buildTypes {
         release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -82,4 +89,7 @@ dependencies {
     //Dynamic-feature
     implementation(libs.feature.delivery)
     implementation(libs.feature.delivery.ktx)
+
+    //LeakCanary
+    debugApi(libs.leakcanary)
 }
