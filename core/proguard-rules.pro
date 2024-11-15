@@ -22,14 +22,19 @@
 
 -dontwarn java.lang.invoke.StringConcatFactory
 
--keep class com.di.** { *; }
--keepclassmembers class com.di.** { *; }
+-keep class com.example.core.di.** { *; }
+-keepclassmembers class com.example.core.di.** { *; }
 
--keep class com.domain.usecase.** { *; }
--keepclassmembers class com.domain.usecase.** { *; }
+-keep class com.example.core.domain.** { *; }
+-keepclassmembers class com.example.core.domain.** { *; }
 
--keep class com.databinding.** { *; }
--keepclassmembers class com.databinding.** { *; }
+-keep class com.example.core.data.** { *; }
+-keepclassmembers class ccom.example.core.data.** { *; }
 
--keep class com.data.** { *; }
--keepclassmembers class com.data.** { *; }
+-keep class com.example.core.utils.** { *; }
+-keepclassmembers class ccom.example.core.utils.** { *; }
+
+-keepclassmembers class com.example.core.Result$* { *; }
+-keep class com.example.core.Result { *; }
+-keep class com.example.core.Result$Success { *; }
+-keep class com.example.core.Result$Error { *; }
